@@ -1,0 +1,18 @@
+{
+  "name": "temp",
+  "version": "1.0.0",
+  "description": "feature \r All students list\r All Teachers list\r all Administration list\r All Alumni list\r latest Notifications\r Donations to school\r Student Attendance\r Faculty Attendance\r Admissions\r Exams\r Results\r Future plannings\r Suggestions box\r Advertiesments through website\r Welcome mails\r online Trainings",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "nodemon": "^3.1.7"
+  }
+}

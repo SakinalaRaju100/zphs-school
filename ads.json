@@ -1,0 +1,23 @@
+[
+  {
+    "name": "",
+    "mobile": "",
+    "title": "Ad Title 01",
+    "adImage": "https://via.placeholder.com/300x200",
+    "description": "Description for advertisement 1. This is a brief overview of the ad content"
+  },
+  {
+    "name": "",
+    "mobile": "",
+    "title": "Ad Title 02",
+    "adImage": "https://via.placeholder.com/300x200",
+    "description": "Description for advertisement 1. This is a brief overview of the ad content"
+  },
+  {
+    "name": "",
+    "mobile": "",
+    "title": "Ad Title 03",
+    "adImage": "https://via.placeholder.com/300x200",
+    "description": "Description for advertisement 1. This is a brief overview of the ad content"
+  }
+]
