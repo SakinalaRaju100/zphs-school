@@ -193,5 +193,20 @@
     "batchYear": "2015",
     "photo": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300",
     "resume": "https://example.com/resumes/amit-reddy.pdf"
+  },
+  {
+    "id": "2023010",
+    "surname": "Sakinala",
+    "name": "Arjunsrihansh2 new2",
+    "gender": "Male",
+    "father": "Raju",
+    "mother": "Anusha",
+    "email": "arjunsrihans@example.com",
+    "phone": "9908284578",
+    "address": "960 east View, Kunur",
+    "profession": "Business Analyst",
+    "batchYear": "2015",
+    "photo": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300",
+    "resume": "https://example.com/resumes/amit-reddy.pdf"
   }
 ]

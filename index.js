@@ -57,7 +57,7 @@ app.post("/submit", (req, res) => {
   });
 
   // res.send(`Form submitted for ${name}.`);
-  res.redirect("http://127.0.0.1:5500/ZPHSKunur.html");
+  res.redirect("https://sakinalaraju100.github.io/zphs-school/");
 });
 
 const port = process.env.PORT || 1954;
