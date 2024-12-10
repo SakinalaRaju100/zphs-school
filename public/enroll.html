@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Information Form</title>
+
+    <!-- React and Material-UI CDN links -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@mui/material@5.14.11/umd/material-ui.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/react-swipeable-views@0.14.0/dist/index.umd.js"></script>
+
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .form-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .error {
+        color: red;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const { useState } = React;
+      const {
+        TextField,
+        Button,
+        MenuItem,
+        Select,
+        InputLabel,
+        FormControl,
+        FormHelperText,
+      } = MaterialUI;
+
+      const StudentForm = () => {
+        const [student, setStudent] = useState({
+          fullName: "Arjunsrihansh2",
+          gender: "Male",
+          father: "Raju",
+          email: "arjunsrihans@example.com",
+          phone: "9908284578",
+          village: "Kunur",
+          batchYear: "2015-2016",
+        });
+
+        const [errors, setErrors] = useState({});
+
+        const validateField = (name, value) => {
+          const newErrors = { ...errors };
+
+          switch (name) {
+            case "id":
+              if (!value) newErrors.id = "Student ID is required.";
+              else delete newErrors.id;
+              break;
+            // case "surname":
+            //   if (!value) newErrors.surname = "Surname is required.";
+            //   else delete newErrors.surname;
+            //   break;
+            case "fullName":
+              if (!value) newErrors.fullName = "Name is required.";
+              else delete newErrors.fullName;
+              break;
+            case "email":
+              if (!value) {
+                newErrors.email = "Email is required.";
+              } else if (!/\S+@\S+\.\S+/.test(value)) {
+                newErrors.email = "Email is invalid.";
+              } else {
+                delete newErrors.email;
+              }
+              break;
+            case "phone":
+              if (!value) {
+                newErrors.phone = "Phone number is required.";
+              } else if (!/^\d{10}$/.test(value)) {
+                newErrors.phone = "Phone number must be 10 digits.";
+              } else {
+                delete newErrors.phone;
+              }
+              break;
+            case "address":
+              if (!value) newErrors.address = "Address is required.";
+              else delete newErrors.address;
+              break;
+            case "profession":
+              if (!value) newErrors.profession = "Profession is required.";
+              else delete newErrors.profession;
+              break;
+            case "father":
+              if (!value) newErrors.father = "Father's name is required.";
+              else delete newErrors.father;
+              break;
+            case "mother":
+              if (!value) newErrors.mother = "Mother's name is required.";
+              else delete newErrors.mother;
+              break;
+            // case "batchYear":
+            //   if (!value) newErrors.batchYear = "Batch Year is required.";
+            //   else if (!/^\d{4}$/.test(value)) {
+            //     newErrors.batchYear = "Batch Year must be a 4-digit year.";
+            //   } else {
+            //     delete newErrors.batchYear;
+            //   }
+            //   break;
+            default:
+              break;
+          }
+
+          setErrors(newErrors);
+        };
+
+        const handleChange = (event) => {
+          const { name, value } = event.target;
+          setStudent({
+            ...student,
+            [name]: value,
+          });
+
+          validateField(name, value); // validate each field on change
+        };
+
+        const handleSubmit = (event) => {
+          console.log("student", student);
+          event.preventDefault();
+
+          // Final validation before submission
+          if (
+            Object.keys(errors).length === 0 &&
+            Object.values(student).every((val) => val !== "")
+          ) {
+            try {
+              // Sending student data using fetch POST method
+              const response = fetch("http://localhost:1954/en-submit", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(student),
+              });
+
+              if (!response.ok) {
+                throw new Error("Failed to submit the form");
+              }
+
+              window.history.back();
+              console.log("Form submitted successfully:", response.json());
+              alert("Form submitted successfully!");
+            } catch (error) {
+              console.error("Error:", error);
+              alert("Failed to submit the form");
+            }
+          }
+        };
+
+        return (
+          <div className="form-container">
+            <h2>Student Information Form</h2>
+            {/* <form onSubmit={handleSubmit}>*/}
+            <form action="/en-submit" method="POST">
+              {/* Batch Year */}
+              <FormControl fullWidth margin="normal">
+                <InputLabel>Batch Year</InputLabel>
+                <Select
+                  label="Batch Year"
+                  name="batchYear"
+                  value={student.batchYear}
+                  onChange={handleChange}
+                >
+                  {Array.from({ length: 55 }, (_, index) => {
+                    const year = new Date().getFullYear() - index;
+                    return (
+                      <MenuItem key={year} value={year - 1 + "-" + year}>
+                        {year - 1}
+                        {"-"}
+                        {year}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+                <FormHelperText error={Boolean(errors.batchYear)}>
+                  {errors.batchYear}
+                </FormHelperText>
+              </FormControl>
+              {/* Name */}
+              <TextField
+                label="Name"
+                name="fullName"
+                value={student.fullName}
+                onChange={handleChange}
+                fullWidth
+                margin="normal"
+                error={Boolean(errors.fullName)}
+                helperText={errors.fullName}
+              />
+              {/* Father's Name */}
+              <TextField
+                label="Father's Name"
+                name="father"
+                value={student.father}
+                onChange={handleChange}
+                fullWidth
+                margin="normal"
+                error={Boolean(errors.father)}
+                helperText={errors.father}
+              />
+              {/* Gender */}
+              <FormControl fullWidth margin="normal">
+                <InputLabel>Gender</InputLabel>
+                <Select
+                  label="Gender"
+                  name="gender"
+                  value={student.gender}
+                  onChange={handleChange}
+                >
+                  <MenuItem value="Male">Male</MenuItem>
+                  <MenuItem value="Female">Female</MenuItem>
+                </Select>
+              </FormControl>
+
+              {/* Email */}
+              <TextField
+                label="Email"
+                name="email"
+                type="email"
+                value={student.email}
+                onChange={handleChange}
+                fullWidth
+                margin="normal"
+                error={Boolean(errors.email)}
+                helperText={errors.email}
+              />
+              {/* Phone */}
+              <TextField
+                label="Phone"
+                name="phone"
+                value={student.phone}
+                onChange={handleChange}
+                fullWidth
+                margin="normal"
+                error={Boolean(errors.phone)}
+                helperText={errors.phone}
+              />
+
+              {/* Village */}
+              <FormControl fullWidth margin="normal">
+                <InputLabel>Village</InputLabel>
+                <Select
+                  label="Village"
+                  name="village"
+                  value={student.village}
+                  onChange={handleChange}
+                >
+                  <MenuItem value="Kunur">Kunur</MenuItem>
+                  <MenuItem value="Raghunathpalle">Raghunathpalle</MenuItem>
+                  <MenuItem value="Konaichelam">Konaichelam</MenuItem>
+                  <MenuItem value="Garmilapally">Garmilapally</MenuItem>
+                  <MenuItem value="Thammadapally">Thammadapally</MenuItem>
+                  <MenuItem value="Uppugal">Uppugal</MenuItem>
+                </Select>
+              </FormControl>
+
+              {/* Button Actions */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginTop: "20px",
+                }}
+              >
+                <Button
+                  onClick={() => window.history.back()}
+                  variant="outlined"
+                  color="secondary"
+                  style={{ flex: 1, marginRight: "10px" }} // Added margin for spacing
+                >
+                  Back
+                </Button>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  style={{ flex: 1 }} // Adjusted to take equal space
+                >
+                  Submit
+                </Button>
+              </div>
+            </form>
+          </div>
+        );
+      };
+
+      // Render the form to the DOM
+      ReactDOM.render(<StudentForm />, document.getElementById("root"));
+    </script>
+  </body>
+</html>

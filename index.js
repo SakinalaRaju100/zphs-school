@@ -14,10 +14,54 @@ app.get("/", (req, res) => {
   res.send("Well come to school server..");
 });
 // Route to serve form.html
+app.get("/enroll-form", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "enroll.html"));
+});
 app.get("/form", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "addStudentForm.html"));
 });
 
+// Handle form submission
+app.post("/en-submit", (req, res) => {
+  const { fullName } = req.body;
+  console.log("res.body", req.body);
+
+  fs.readFile("enrolls.json", "utf8", (err, data) => {
+    if (err) {
+      console.error("Error reading file:", err);
+      return;
+    }
+
+    // Parse the existing data, or create an empty array if the file is empty
+    let existingData = [];
+    try {
+      existingData = JSON.parse(data);
+    } catch (parseError) {
+      // If the JSON is malformed or empty, it might fail to parse, so we initialize an empty array
+      existingData = [];
+    }
+
+    // Add the new document to the existing data
+    existingData.push(req.body);
+
+    // Write the updated data back to the JSON file
+    fs.writeFile(
+      "enrolls.json",
+      JSON.stringify(existingData, null, 2),
+      "utf8",
+      (err) => {
+        if (err) {
+          console.error("Error writing to file:", err);
+          return;
+        }
+        console.log("Enroll successfully");
+      }
+    );
+  });
+
+  res.send(`Form submitted for ${fullName}.`);
+  // res.redirect("https://sakinalaraju100.github.io/zphs-school/");
+});
 // Handle form submission
 app.post("/submit", (req, res) => {
   const { name } = req.body;
