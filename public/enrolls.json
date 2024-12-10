@@ -1,0 +1,56 @@
+[
+  {
+    "batchYear": "2015-2016",
+    "fullName": "public",
+    "father": "Raju",
+    "gender": "Male",
+    "email": "arjunsrihans@example.com",
+    "phone": "9908284578",
+    "village": "Kunur"
+  },
+  {
+    "batchYear": "2009-2010",
+    "fullName": "Anitha",
+    "father": "Parusharamulu",
+    "gender": "Female",
+    "email": "anitha@example.com",
+    "phone": "7707787909",
+    "village": "Kunur"
+  },
+  {
+    "batchYear": "2009-2010",
+    "fullName": "Anitha",
+    "father": "Parusharamulu",
+    "gender": "Female",
+    "email": "anitha@example.com",
+    "phone": "7707787909",
+    "village": "Kunur"
+  },
+  {
+    "batchYear": "2015-2016",
+    "fullName": "Arjunsrihansh2",
+    "father": "Raju",
+    "gender": "Male",
+    "email": "arjunsrihans@example.com",
+    "phone": "9908284578",
+    "village": "Kunur"
+  },
+  {
+    "batchYear": "2015-2016",
+    "fullName": "Arjunsrihansh2",
+    "father": "Raju",
+    "gender": "Male",
+    "email": "arjunsrihans@example.com",
+    "phone": "9908284578",
+    "village": "Kunur"
+  },
+  {
+    "batchYear": "2015-2016",
+    "fullName": "Arjunsrihansh2",
+    "father": "Anitha",
+    "gender": "Male",
+    "email": "arjunsrihans@example.com",
+    "phone": "9908284578",
+    "village": "Garmilapally"
+  }
+]
