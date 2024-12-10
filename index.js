@@ -13,6 +13,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("/", (req, res) => {
   res.send("Well come to school server..");
 });
+app.get("/test", (req, res) => {
+  res.send("test");
+});
 // Route to serve form.html
 app.get("/enroll-form", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "enroll.html"));
