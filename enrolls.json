@@ -1,50 +1,26 @@
 [
   {
+    "time": "2024-12-10T13:25:58.840Z",
     "batchYear": "2015-2016",
     "fullName": "Arjunsrihansh2",
-    "father": "Raju",
+    "father": "Anitha",
     "gender": "Male",
     "email": "arjunsrihans@example.com",
     "phone": "9908284578",
-    "village": "Kunur"
+    "village": "Garmilapally"
   },
   {
-    "batchYear": "2009-2010",
-    "fullName": "Anitha",
-    "father": "Parusharamulu",
-    "gender": "Female",
-    "email": "anitha@example.com",
-    "phone": "7707787909",
-    "village": "Kunur"
-  },
-  {
-    "batchYear": "2009-2010",
-    "fullName": "Anitha",
-    "father": "Parusharamulu",
-    "gender": "Female",
-    "email": "anitha@example.com",
-    "phone": "7707787909",
-    "village": "Kunur"
-  },
-  {
+    "time": "2024-12-10T13:26:49.613Z",
     "batchYear": "2015-2016",
     "fullName": "Arjunsrihansh2",
-    "father": "Raju",
+    "father": "Anitha",
     "gender": "Male",
     "email": "arjunsrihans@example.com",
     "phone": "9908284578",
-    "village": "Kunur"
+    "village": "Garmilapally"
   },
   {
-    "batchYear": "2015-2016",
-    "fullName": "Arjunsrihansh2",
-    "father": "Raju",
-    "gender": "Male",
-    "email": "arjunsrihans@example.com",
-    "phone": "9908284578",
-    "village": "Kunur"
-  },
-  {
+    "time": "2024-12-10T13:26:56.116Z",
     "batchYear": "2015-2016",
     "fullName": "Arjunsrihansh2",
     "father": "Anitha",

@@ -103,6 +103,69 @@ app.post("/submit", (req, res) => {
   // res.send(`Form submitted for ${name}.`);
   res.redirect("https://sakinalaraju100.github.io/zphs-school/");
 });
+app.get("/get-enroll-list-json", (req, res) => {
+  fs.readFile("enrolls.json", "utf8", (err, data) => {
+    if (err) {
+      console.error("Error reading file:", err);
+      return;
+    }
+
+    // Parse the existing data, or create an empty array if the file is empty
+    let existingData = [];
+    try {
+      existingData = JSON.parse(data);
+      return res.send(existingData);
+    } catch (parseError) {
+      // If the JSON is malformed or empty, it might fail to parse, so we initialize an empty array
+      existingData = [];
+      return res.send(existingData);
+    }
+  });
+});
+app.get("/add-new-enroll-to-json", (req, res) => {
+  fs.readFile("enrolls.json", "utf8", (err, data) => {
+    if (err) {
+      console.error("Error reading file:", err);
+      return;
+    }
+
+    // Parse the existing data, or create an empty array if the file is empty
+    let existingData = [];
+    try {
+      existingData = JSON.parse(data);
+    } catch (parseError) {
+      // If the JSON is malformed or empty, it might fail to parse, so we initialize an empty array
+      existingData = [];
+    }
+
+    // Add the new document to the existing data
+    existingData.push({
+      time: new Date(),
+      batchYear: "2015-2016",
+      fullName: "Arjunsrihansh2",
+      father: "Anitha",
+      gender: "Male",
+      email: "arjunsrihans@example.com",
+      phone: "9908284578",
+      village: "Garmilapally",
+    });
+
+    // Write the updated data back to the JSON file
+    fs.writeFile(
+      "enrolls.json",
+      JSON.stringify(existingData, null, 2),
+      "utf8",
+      (err) => {
+        if (err) {
+          console.error("Error writing to file:", err);
+          return;
+        }
+        console.log("New document successfully added to file");
+        res.send("success");
+      }
+    );
+  });
+});
 
 const port = process.env.PORT || 1954;
 app.listen(port, () => {
