@@ -148,22 +148,22 @@
           console.log("listData", listData);
           return listData.filter((student) => {
             return (
-              (student.fullName
+              (student?.fullName
                 .toLowerCase()
                 .includes(nameFilter.toLowerCase()) ||
-                student.father
+                student?.father
                   .toLowerCase()
                   .includes(nameFilter.toLowerCase()) ||
-                student.gender
+                student?.gender
                   .toLowerCase()
                   .includes(nameFilter.toLowerCase()) ||
-                // student?.profession
-                //   ? student.profession
-                //   : "".toLowerCase().includes(nameFilter.toLowerCase()) ||
-                student.village
+                student?.village
+                  .toLowerCase()
+                  .includes(nameFilter.toLowerCase()) ||
+                student?.profession
                   .toLowerCase()
                   .includes(nameFilter.toLowerCase())) &&
-              (batchYearFilter === "" || student.batchYear === batchYearFilter)
+              (batchYearFilter === "" || student?.batchYear === batchYearFilter)
             );
           });
           // }, 500);
@@ -407,7 +407,7 @@
                         <TableCell>{student?.gender}</TableCell>
                         <TableCell>{student?.phone}</TableCell>
                         <TableCell>
-                          {student?.profession ? student?.profession : ""}
+                          {student?.profession ? student?.profession : "-"}
                         </TableCell>
                         <TableCell>{student?.village}</TableCell>
                         <TableCell>{student?.batchYear}</TableCell>
