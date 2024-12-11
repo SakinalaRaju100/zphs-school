@@ -44,7 +44,7 @@ app.post("/new-enroll", async (req, res) => {
     await newEnroll.save();
 
     // res.status(201).json({ message: "User created successfully" });
-    res.redirect("http://localhost:1954/enroll-list");
+    res.redirect("https://zphs-school.vercel.app/enroll-list");
   } catch (err) {
     res.status(500).json({ message: "Error creating user", error: err });
   }
