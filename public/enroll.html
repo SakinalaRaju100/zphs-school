@@ -58,6 +58,7 @@
           father: "",
           email: "",
           phone: "",
+          profession: "",
           village: "",
           batchYear: "",
         });
@@ -110,9 +111,10 @@
               if (!value) newErrors.father = "Father's name is required.";
               else delete newErrors.father;
               break;
-            case "mother":
-              if (!value) newErrors.mother = "Mother's name is required.";
-              else delete newErrors.mother;
+            case "profession":
+              if (!value)
+                newErrors.profession = "profession's name is required.";
+              else delete newErrors.profession;
               break;
             // case "batchYear":
             //   if (!value) newErrors.batchYear = "Batch Year is required.";
@@ -265,6 +267,18 @@
                 margin="normal"
                 error={Boolean(errors.phone)}
                 helperText={errors.phone}
+              />
+
+              {/* profession */}
+              <TextField
+                label="Profession"
+                name="profession"
+                value={student.profession}
+                onChange={handleChange}
+                fullWidth
+                margin="normal"
+                error={Boolean(errors.profession)}
+                helperText={errors.profession}
               />
 
               {/* Village */}
