@@ -40,6 +40,11 @@ app.post("/all-enrolls", async (req, res) => {
 
 app.post("/new-enroll", async (req, res) => {
   console.log("req.body", req.body);
+  if (!req.body.father) {
+    // res.redirect("https://zphs-school.vercel.app/same-details-enrolled.html");
+
+    return res.status(403).send("missing inputs");
+  }
   try {
     // need to put condition to avaid dublicates
     // const exstingUsers = await Enroll.findOne(req.body);
