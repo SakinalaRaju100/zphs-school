@@ -132,6 +132,7 @@
         const [batchYearFilter, setBatchYearFilter] = React.useState("");
 
         const getFilteredlist = () => {
+          console.log("filter", nameFilter, batchYearFilter);
           // setTimeout(() => {
           console.log("listData", listData);
           return listData.filter((student) => {
@@ -153,7 +154,6 @@
                   .includes(nameFilter.toLowerCase())) &&
               (batchYearFilter === "" || student.batchYear === batchYearFilter)
             );
-            // return true;
           });
           // }, 500);
         };
