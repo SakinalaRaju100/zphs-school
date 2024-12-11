@@ -6,6 +6,7 @@ const path = require("path");
 const fs = require("fs");
 const Enroll = require("./modals/Enroll");
 const app = express();
+app.use(express.json());
 app.use(cors());
 
 // Middleware to parse form data (urlencoded)
