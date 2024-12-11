@@ -97,7 +97,7 @@
 
       const StudentForm = () => {
         const [listData, setListData] = useState([]);
-        const [showList, setShowList] = useState(false);
+        const [showList, setShowList] = useState(true);
 
         const [student, setStudent] = useState({
           fullName: "",
@@ -234,34 +234,18 @@
           })
             .then((response) => response.json()) // Parse the JSON
             .then((data) => {
-              // console.log("data", data);
               setListData(data);
-              // listData = data;
             })
             .catch((error) => console.error("Error loading JSON:", error));
         }, []);
 
-        // const [student, setStudent] = useState({
-        //   fullName: "",
-        //   gender: "",
-        //   father: "",
-        //   email: "",
-        //   phone: "",
-        //   profession: "",
-        //   village: "",
-        //   batchYear: "",
-        // });
-
-        // const [errors, setErrors] = useState({});
         const [nameFilter, setNameFilter] = React.useState("");
-        // list data
-        // let listData = [];
 
         const [batchYearFilter, setBatchYearFilter] = React.useState("");
 
         const getFilteredlist = () => {
           console.log("filter", nameFilter, batchYearFilter);
-          // setTimeout(() => {
+
           console.log("listData", listData);
           return listData.filter((student) => {
             return (
@@ -283,7 +267,6 @@
               (batchYearFilter === "" || student?.batchYear === batchYearFilter)
             );
           });
-          // }, 500);
         };
         console.log("getFilteredlist", getFilteredlist());
 
