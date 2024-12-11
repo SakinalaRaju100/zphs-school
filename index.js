@@ -39,12 +39,14 @@ app.post("/all-enrolls", async (req, res) => {
 });
 
 app.post("/new-enroll", async (req, res) => {
+  console.log("req.body", req.body);
   try {
     // need to put condition to avaid dublicates
     // const exstingUsers = await Enroll.findOne(req.body);
     const exstingUsers = await Enroll.findOne({
       fullName: req.body.fullName,
       father: req.body.father,
+      batchYear: req.body.batchYear,
     });
     if (exstingUsers) {
       // res.redirect("https://zphs-school.vercel.app/same-details-enrolled.html");
