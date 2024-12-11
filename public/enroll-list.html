@@ -128,8 +128,7 @@
         // list data
         // let listData = [];
 
-        const [batchYearFilter, setBatchYearFilter] =
-          React.useState("2009-2010");
+        const [batchYearFilter, setBatchYearFilter] = React.useState("");
 
         const getFilteredlist = () => {
           console.log("listData", listData);
@@ -138,11 +137,7 @@
               student.fullName
                 .toLowerCase()
                 .includes(nameFilter.toLowerCase()) ||
-              (student.village
-                .toLowerCase()
-                .includes(nameFilter.toLowerCase()) &&
-                batchYearFilter === "") ||
-              student.batchYear === batchYearFilter
+              student.village.toLowerCase().includes(nameFilter.toLowerCase())
             );
             // return true;
           });
@@ -155,8 +150,12 @@
           setBatchYearFilter("");
         };
         const getBatchYears = () => {
-          const years = listData.map((student) => student.batchYear);
-          return [...new Set(years)].sort();
+          const currentYear = new Date().getFullYear();
+          const years = Array.from({ length: 55 }, (_, i) => {
+            const year = currentYear - i;
+            return `${year}-${year + 1}`;
+          });
+          return years.reverse(); // Reverse to get the latest years first
         };
 
         return (
