@@ -61,8 +61,8 @@ app.post("/new-enroll", async (req, res) => {
       const newEnroll = new Enroll(req.body);
       await newEnroll.save();
 
-      // res.status(201).json({ message: "User created successfully" });
-      res.redirect("https://zphs-school.vercel.app/enroll-list");
+      res.status(201).json({ message: "User created successfully" });
+      // res.redirect("https://zphs-school.vercel.app/enroll-list");
       // res.sendFile(path.join(__dirname, "public", "enroll-list.html"));
       return;
     }
