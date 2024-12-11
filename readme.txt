@@ -17,4 +17,14 @@ Welcome mails
 online Trainings
 
 
+npm install mongodb
+ObBamLOL3fm9X16z
+
+mongodb+srv://sakinalaraju100:<db_password>@cluster0.4bvgg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+
+// bello is working
+
+mongodb+srv://sakinalaraju100:ObBamLOL3fm9X16z@cluster0.4bvgg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
 

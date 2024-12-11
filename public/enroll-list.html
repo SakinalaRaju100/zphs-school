@@ -95,7 +95,14 @@
         const [listData, setListData] = useState([]);
 
         useEffect(() => {
-          fetch("../enrolls.json")
+          fetch("http://localhost:1954/all-enrolls", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            // body: JSON.stringify(student),
+            body: {},
+          })
             .then((response) => response.json()) // Parse the JSON
             .then((data) => {
               // console.log("data", data);

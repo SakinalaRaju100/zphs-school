@@ -150,7 +150,7 @@
           ) {
             try {
               // Sending student data using fetch POST method
-              const response = fetch("http://localhost:1954/en-submit", {
+              const response = fetch("http://localhost:1954/new-enroll", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -176,7 +176,7 @@
           <div className="form-container">
             <h2>Student Information Form</h2>
             {/* <form onSubmit={handleSubmit}>*/}
-            <form action="/en-submit" method="POST">
+            <form action="/new-enroll" method="POST">
               {/* Batch Year */}
               <FormControl fullWidth margin="normal">
                 <InputLabel>Batch Year</InputLabel>

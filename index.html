@@ -635,11 +635,20 @@
         const getFilteredStudents = () => {
           return studentsList.filter((student) => {
             return (
-              ((student.surname
-                .toLowerCase()
-                .includes(nameFilter.toLowerCase()) ||
-                student.name.toLowerCase().includes(nameFilter.toLowerCase()) ||
-                student.address
+              // ((student.surname
+              //   .toLowerCase()
+              //   .includes(nameFilter.toLowerCase()) ||
+              //   student.name.toLowerCase().includes(nameFilter.toLowerCase()) ||
+              //   student.address
+              //     .toLowerCase()
+              //     .includes(nameFilter.toLowerCase()) ||
+              //   student.profession
+              //     .toLowerCase()
+              //     .includes(nameFilter.toLowerCase())) &&
+              //   batchYearFilter === "") ||
+              // student.batchYear === batchYearFilter
+              ((student.name.toLowerCase().includes(nameFilter.toLowerCase()) ||
+                student.village
                   .toLowerCase()
                   .includes(nameFilter.toLowerCase()) ||
                 student.profession
@@ -2933,6 +2942,22 @@
                       New Student
                     </Button>
                   </Box>
+                  <Box
+                    sx={{
+                      border: "1px solid #ccc", // Add a border
+                      borderRadius: "8px", // Rounded corners
+                      padding: "20px", // Inner padding
+                      boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow
+                      backgroundColor: "#fff", // Background color
+                      marginTop: "20px", // Space above the box
+                      width: "90%", // Set width to 90% of the parent container
+                      maxWidth: "800px", // Maximum width for larger screens
+                      height: "800px", // Allow height to adjust based on content
+                      minHeight: "300px", // Minimum height for comfort
+                    }}
+                  >
+                    <embed src="./my.pdf" width="100%" height="800px" />
+                  </Box>
 
                   {/* Filters Section */}
 
@@ -3049,16 +3074,7 @@
                           >
                             ID
                           </TableCell>
-                          <TableCell
-                            sx={{ color: "white", fontWeight: "bold" }}
-                          >
-                            Photo
-                          </TableCell>
-                          <TableCell
-                            sx={{ color: "white", fontWeight: "bold" }}
-                          >
-                            Surname
-                          </TableCell>
+
                           <TableCell
                             sx={{
                               color: "white",
@@ -3069,37 +3085,18 @@
                               zIndex: 1,
                             }}
                           >
-                            Name
+                            Full name
+                          </TableCell>
+
+                          <TableCell
+                            sx={{ color: "white", fontWeight: "bold" }}
+                          >
+                            Contact
                           </TableCell>
                           <TableCell
                             sx={{ color: "white", fontWeight: "bold" }}
                           >
-                            Father
-                          </TableCell>
-                          <TableCell
-                            sx={{ color: "white", fontWeight: "bold" }}
-                          >
-                            Mother
-                          </TableCell>
-                          <TableCell
-                            sx={{ color: "white", fontWeight: "bold" }}
-                          >
-                            Gender
-                          </TableCell>
-                          <TableCell
-                            sx={{ color: "white", fontWeight: "bold" }}
-                          >
-                            Email
-                          </TableCell>
-                          <TableCell
-                            sx={{ color: "white", fontWeight: "bold" }}
-                          >
-                            Phone
-                          </TableCell>
-                          <TableCell
-                            sx={{ color: "white", fontWeight: "bold" }}
-                          >
-                            Address
+                            Village
                           </TableCell>
                           <TableCell
                             sx={{ color: "white", fontWeight: "bold" }}
@@ -3111,38 +3108,20 @@
                           >
                             Batch Year
                           </TableCell>
-                          <TableCell
-                            sx={{ color: "white", fontWeight: "bold" }}
-                          >
-                            Resume
-                          </TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {getFilteredStudents().map((student) => (
+                        {getFilteredStudents().map((student, ind) => (
                           <TableRow
-                            key={student.id}
+                            key={ind}
                             onClick={() => handleRowClick(student)}
                             sx={{
                               "&:nth-of-type(odd)": { bgcolor: "grey.50" },
                               "&:hover": { bgcolor: "grey.100" },
                             }}
                           >
-                            <TableCell>{student.id}</TableCell>
-                            <TableCell>
-                              <Box
-                                component="img"
-                                src={student.photo}
-                                alt={student.name}
-                                sx={{
-                                  width: 40,
-                                  height: 40,
-                                  borderRadius: "50%",
-                                  objectFit: "cover",
-                                }}
-                              />
-                            </TableCell>
-                            <TableCell>{student.surname}</TableCell>
+                            <TableCell>{ind + 1}</TableCell>
+
                             <TableCell
                               sx={{
                                 fontWeight: "bold",
@@ -3154,33 +3133,11 @@
                             >
                               {student.name}
                             </TableCell>
-                            <TableCell>{student.father}</TableCell>
-                            <TableCell>{student.mother}</TableCell>
-                            <TableCell>{student.gender}</TableCell>
-                            <TableCell>{student.email}</TableCell>
-                            <TableCell>{student.phone}</TableCell>
-                            <TableCell>{student.address}</TableCell>
+
+                            <TableCell>{student.contact}</TableCell>
+                            <TableCell>{student.village}</TableCell>
                             <TableCell>{student.profession}</TableCell>
-                            <TableCell>{`${student.batchYear - 1}_${
-                              student.batchYear
-                            }`}</TableCell>
-                            <TableCell>
-                              <IconButton
-                                href={student.resume}
-                                target="_blank"
-                                color="primary"
-                                size="small"
-                                sx={{
-                                  "&:hover": {
-                                    backgroundColor: "primary.light",
-                                  },
-                                }}
-                              >
-                                <span className="material-icons">
-                                  description
-                                </span>
-                              </IconButton>
-                            </TableCell>
+                            <TableCell>{`${student.batchYear}`}</TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
