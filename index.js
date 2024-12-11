@@ -1,10 +1,12 @@
 // index.js
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 const Enroll = require("./modals/Enroll");
 const app = express();
+app.use(cors());
 
 // Middleware to parse form data (urlencoded)
 app.use(express.urlencoded({ extended: true }));
