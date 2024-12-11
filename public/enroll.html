@@ -162,12 +162,15 @@
                   body: JSON.stringify(student),
                 }
               );
-
+              console.log("responce", response);
+              alert(JSON.stringify(response));
               if (!response.ok) {
                 throw new Error("Failed to submit the form");
               }
 
-              window.history.back();
+              // window.history.back();
+              // window.location.href =
+              //   "https://zphs-school.vercel.app/enroll-list";
               console.log("Form submitted successfully:", response.json());
               alert("Form submitted successfully!");
             } catch (error) {
