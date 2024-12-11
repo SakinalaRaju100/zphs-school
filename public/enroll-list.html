@@ -132,28 +132,31 @@
         const [batchYearFilter, setBatchYearFilter] = React.useState("");
 
         const getFilteredlist = () => {
-          console.log("listData", listData);
-          return listData.filter((student) => {
-            return (
-              (student.fullName
-                .toLowerCase()
-                .includes(nameFilter.toLowerCase()) ||
-                student.father
+          setTimeout(() => {
+            console.log("listData", listData);
+            return listData.filter((student) => {
+              return (
+                (student.fullName
                   .toLowerCase()
                   .includes(nameFilter.toLowerCase()) ||
-                student.gender
-                  .toLowerCase()
-                  .includes(nameFilter.toLowerCase()) ||
-                student.profession
-                  .toLowerCase()
-                  .includes(nameFilter.toLowerCase()) ||
-                student.village
-                  .toLowerCase()
-                  .includes(nameFilter.toLowerCase())) &&
-              (batchYearFilter === "" || student.batchYear === batchYearFilter)
-            );
-            // return true;
-          });
+                  student.father
+                    .toLowerCase()
+                    .includes(nameFilter.toLowerCase()) ||
+                  student.gender
+                    .toLowerCase()
+                    .includes(nameFilter.toLowerCase()) ||
+                  student.profession
+                    .toLowerCase()
+                    .includes(nameFilter.toLowerCase()) ||
+                  student.village
+                    .toLowerCase()
+                    .includes(nameFilter.toLowerCase())) &&
+                (batchYearFilter === "" ||
+                  student.batchYear === batchYearFilter)
+              );
+              // return true;
+            });
+          }, 500);
         };
         console.log("getFilteredlist", getFilteredlist());
 
