@@ -214,7 +214,7 @@
               })
               .catch((error) => {
                 setShowList(false);
-                alert("catch", error);
+                alert("catch", JSON.stringify(error));
                 console.log("Error occurred:", error);
               });
           } else {
