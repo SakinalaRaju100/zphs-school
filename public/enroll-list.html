@@ -137,7 +137,19 @@
               student.fullName
                 .toLowerCase()
                 .includes(nameFilter.toLowerCase()) ||
+              student.father
+                .toLowerCase()
+                .includes(nameFilter.toLowerCase())
+                .includes(nameFilter.toLowerCase()) ||
+              student.gender
+                .toLowerCase()
+                .includes(nameFilter.toLowerCase())
+                .includes(nameFilter.toLowerCase()) ||
               student.village.toLowerCase().includes(nameFilter.toLowerCase())
+
+              // ) &&
+              //   batchYearFilter === "") ||
+              // student.batchYear === batchYearFilter
             );
             // return true;
           });
