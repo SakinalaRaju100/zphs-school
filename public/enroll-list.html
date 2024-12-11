@@ -172,157 +172,163 @@
         };
 
         return (
-          // <div className="form-container">
-          <Box sx={{ p: 3 }}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                mb: 3,
-              }}
-            >
-              <Typography
-                variant="h5"
-                gutterBottom
-                sx={{ fontWeight: "bold", fontSize: "1.25rem" }} // Reduced font size
-              >
-                All enrollments
-              </Typography>
-            </Box>
-
-            {/* New Student Button */}
-            <Box sx={{ mb: 3, textAlign: "right" }}>
-              <Button
-                variant="contained"
-                color="primary"
-                href="https://zphs-school.vercel.app/enroll-form"
-                // href="https://sakinalaraju100.github.io/zphs-school/public/addStudentForm.html"
-              >
-                New enroll
-              </Button>
-            </Box>
-
-            {/* Filters Section */}
-
-            <Box sx={{ mb: 3 }}>
+          <div className="form-container">
+            <Box sx={{ p: 3 }}>
               <Box
                 sx={{
                   display: "flex",
-                  flexDirection: "row",
-                  gap: 2,
-                  flexWrap: "wrap",
-                  mb: 2,
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  mb: 3,
                 }}
               >
-                <Box sx={{ flexGrow: 1, minWidth: "200px" }}>
-                  <Typography
-                    variant="subtitle2"
-                    gutterBottom
-                    sx={{ fontSize: "0.875rem" }}
-                  ></Typography>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      bgcolor: "grey.100",
-                      borderRadius: 1,
-                      px: 2,
-                    }}
-                  >
-                    <span className="material-icons" sx={{ color: "grey.500" }}>
-                      search
-                    </span>
-                    <input
-                      type="text"
-                      value={nameFilter}
-                      onChange={(e) => setNameFilter(e.target.value)}
-                      placeholder="Filter by name, father, profession, gender or village..."
-                      style={{
-                        border: "none",
-                        outline: "none",
-                        padding: "8px",
-                        backgroundColor: "transparent",
-                        width: "100%",
-                      }}
-                    />
-                    {nameFilter && (
-                      <IconButton
-                        onClick={() => setNameFilter("")}
-                        sx={{ ml: 1 }}
-                      >
-                        <span
-                          className="material-icons"
-                          style={{ color: "grey.500" }}
-                        >
-                          clear
-                        </span>
-                      </IconButton>
-                    )}
-                  </Box>
-                </Box>
+                <Typography
+                  variant="h5"
+                  gutterBottom
+                  sx={{ fontWeight: "bold", fontSize: "1.25rem" }} // Reduced font size
+                >
+                  All enrollments
+                </Typography>
+              </Box>
 
-                <Box sx={{ flexGrow: 1, minWidth: "200px" }}>
-                  <Typography
-                    variant="subtitle2"
-                    gutterBottom
-                    sx={{ fontSize: "0.875rem" }}
-                  ></Typography>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      bgcolor: "grey.100",
-                      borderRadius: 1,
-                      px: 2,
-                    }}
-                  >
-                    <span className="material-icons" sx={{ color: "grey.500" }}>
-                      school
-                    </span>
-                    <select
-                      value={batchYearFilter}
-                      onChange={(e) => {
-                        console.log("batchYearFilter", e.target.value);
-                        setBatchYearFilter(e.target.value);
-                      }}
-                      style={{
-                        border: "none",
-                        outline: "none",
-                        padding: "8px",
-                        backgroundColor: "transparent",
-                        width: "100%",
+              {/* New Student Button */}
+              <Box sx={{ mb: 3, textAlign: "right" }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  href="https://zphs-school.vercel.app/enroll-form"
+                  // href="https://sakinalaraju100.github.io/zphs-school/public/addStudentForm.html"
+                >
+                  New enroll
+                </Button>
+              </Box>
+
+              {/* Filters Section */}
+
+              <Box sx={{ mb: 3 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: 2,
+                    flexWrap: "wrap",
+                    mb: 2,
+                  }}
+                >
+                  <Box sx={{ flexGrow: 1, minWidth: "200px" }}>
+                    <Typography
+                      variant="subtitle2"
+                      gutterBottom
+                      sx={{ fontSize: "0.875rem" }}
+                    ></Typography>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        bgcolor: "grey.100",
+                        borderRadius: 1,
+                        px: 2,
                       }}
                     >
-                      <option value="">All Batch Years</option>
-                      {getBatchYears().map((year) => (
-                        <option key={year} value={year}>
-                          {year}
-                        </option>
-                      ))}
-                    </select>
+                      <span
+                        className="material-icons"
+                        sx={{ color: "grey.500" }}
+                      >
+                        search
+                      </span>
+                      <input
+                        type="text"
+                        value={nameFilter}
+                        onChange={(e) => setNameFilter(e.target.value)}
+                        placeholder="Filter by name, father, profession, gender or village..."
+                        style={{
+                          border: "none",
+                          outline: "none",
+                          padding: "8px",
+                          backgroundColor: "transparent",
+                          width: "100%",
+                        }}
+                      />
+                      {nameFilter && (
+                        <IconButton
+                          onClick={() => setNameFilter("")}
+                          sx={{ ml: 1 }}
+                        >
+                          <span
+                            className="material-icons"
+                            style={{ color: "grey.500" }}
+                          >
+                            clear
+                          </span>
+                        </IconButton>
+                      )}
+                    </Box>
+                  </Box>
+
+                  <Box sx={{ flexGrow: 1, minWidth: "200px" }}>
+                    <Typography
+                      variant="subtitle2"
+                      gutterBottom
+                      sx={{ fontSize: "0.875rem" }}
+                    ></Typography>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        bgcolor: "grey.100",
+                        borderRadius: 1,
+                        px: 2,
+                      }}
+                    >
+                      <span
+                        className="material-icons"
+                        sx={{ color: "grey.500" }}
+                      >
+                        school
+                      </span>
+                      <select
+                        value={batchYearFilter}
+                        onChange={(e) => {
+                          console.log("batchYearFilter", e.target.value);
+                          setBatchYearFilter(e.target.value);
+                        }}
+                        style={{
+                          border: "none",
+                          outline: "none",
+                          padding: "8px",
+                          backgroundColor: "transparent",
+                          width: "100%",
+                        }}
+                      >
+                        <option value="">All Batch Years</option>
+                        {getBatchYears().map((year) => (
+                          <option key={year} value={year}>
+                            {year}
+                          </option>
+                        ))}
+                      </select>
+                    </Box>
                   </Box>
                 </Box>
               </Box>
-            </Box>
 
-            <Box sx={{ overflowX: "auto" }}>
-              <Table sx={{ minWidth: 650 }}>
-                <TableHead>
-                  <TableRow sx={{ bgcolor: "primary.main" }}>
-                    <TableCell
-                      sx={{
-                        color: "white",
-                        fontWeight: "bold",
-                        backgroundColor: "primary.main",
-                        position: "sticky",
-                        left: 0,
-                        zIndex: 1,
-                      }}
-                    >
-                      No.
-                    </TableCell>
-                    {/*<TableCell
+              <Box sx={{ overflowX: "auto" }}>
+                <Table sx={{ minWidth: 650 }}>
+                  <TableHead>
+                    <TableRow sx={{ bgcolor: "primary.main" }}>
+                      <TableCell
+                        sx={{
+                          color: "white",
+                          fontWeight: "bold",
+                          backgroundColor: "primary.main",
+                          position: "sticky",
+                          left: 0,
+                          zIndex: 1,
+                        }}
+                      >
+                        No.
+                      </TableCell>
+                      {/*<TableCell
                         sx={{
                           // width: "100px",
                           color: "white",
@@ -335,79 +341,79 @@
                       >
                         Full Name
                       </TableCell>*/}
-                    <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                      Full Name
-                    </TableCell>
-                    <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                      Father
-                    </TableCell>
+                      <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                        Full Name
+                      </TableCell>
+                      <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                        Father
+                      </TableCell>
 
-                    <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                      Gender
-                    </TableCell>
+                      <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                        Gender
+                      </TableCell>
 
-                    <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                      Phone
-                    </TableCell>
-                    <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                      Profession
-                    </TableCell>
-                    <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                      Village
-                    </TableCell>
+                      <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                        Phone
+                      </TableCell>
+                      <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                        Profession
+                      </TableCell>
+                      <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                        Village
+                      </TableCell>
 
-                    <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                      Batch Year
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {getFilteredlist().map((student, ind) => (
-                    <TableRow
-                      key={ind}
-                      // onClick={() => handleRowClick(student)}
-                      sx={{
-                        "&:nth-of-type(odd)": { bgcolor: "grey.50" },
-                        "&:hover": { bgcolor: "grey.100" },
-                      }}
-                    >
-                      <TableCell
+                      <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                        Batch Year
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {getFilteredlist().map((student, ind) => (
+                      <TableRow
+                        key={ind}
+                        // onClick={() => handleRowClick(student)}
                         sx={{
-                          color: "white",
-                          fontWeight: "bold",
-                          position: "sticky",
-                          left: 0,
-                          backgroundColor: "lightblue",
-                          zIndex: 1,
+                          "&:nth-of-type(odd)": { bgcolor: "grey.50" },
+                          "&:hover": { bgcolor: "grey.100" },
                         }}
                       >
-                        {ind + 1}
-                      </TableCell>
-                      <TableCell>{student?.fullName}</TableCell>
-                      <TableCell>{student?.father}</TableCell>
-                      <TableCell>{student?.gender}</TableCell>
-                      <TableCell>{student?.phone}</TableCell>
-                      <TableCell>{student?.profession}</TableCell>
-                      <TableCell>{student?.village}</TableCell>
-                      <TableCell>{student?.batchYear}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Box>
+                        <TableCell
+                          sx={{
+                            color: "white",
+                            fontWeight: "bold",
+                            position: "sticky",
+                            left: 0,
+                            backgroundColor: "lightblue",
+                            zIndex: 1,
+                          }}
+                        >
+                          {ind + 1}
+                        </TableCell>
+                        <TableCell>{student?.fullName}</TableCell>
+                        <TableCell>{student?.father}</TableCell>
+                        <TableCell>{student?.gender}</TableCell>
+                        <TableCell>{student?.phone}</TableCell>
+                        <TableCell>{student?.profession}</TableCell>
+                        <TableCell>{student?.village}</TableCell>
+                        <TableCell>{student?.batchYear}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Box>
 
-            <Box sx={{ mt: 3, textAlign: "center" }}>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                For any updates to student information, please contact the
-                school administration.
-              </Typography>
+              <Box sx={{ mt: 3, textAlign: "center" }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ fontSize: "0.875rem" }}
+                >
+                  For any updates to student information, please contact the
+                  school administration.
+                </Typography>
+              </Box>
             </Box>
-          </Box>
-          // </div>
+          </div>
         );
       };
 
