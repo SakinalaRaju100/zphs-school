@@ -208,27 +208,31 @@
                   headers: {
                     "Content-Type": "application/json",
                   },
-                  body: JSON.stringify(student),
+                  // body: JSON.stringify(student),
+                  body: student,
                 }
               );
-              response.then((e) => {
-                console.log("responce", e);
-                alert(JSON.stringify(e));
+              response.then((res) => {
+                console.log("res", res);
+                if (res?.status == 401) {
+                  alert("Same details already enrolled");
+                }
               });
-              // if (!response.ok) {
-              //   throw new Error("Failed to submit the form");
-              //   return;
-              // }
+              if (!response.ok) {
+                alert("Error while enrollment");
+                // throw new Error("Failed to submit the form");
+                // return;
+              }
 
               // window.history.back();
               // window.location.href =
               //   "https://zphs-school.vercel.app/enroll-list";
               setShowList(true);
               console.log("Form submitted successfully:");
-              alert("Form submitted successfully!");
+              alert("enrollment successfully!");
             } catch (error) {
               console.error("Error:", error);
-              alert("Failed to submit the form");
+              alert("Failed to enrollment");
             }
           } else {
             alert("some fileds missing");
