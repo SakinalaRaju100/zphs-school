@@ -198,46 +198,6 @@
             Object.keys(errors).length === 0 &&
             Object.values(student).every((val) => val !== "")
           ) {
-            alert("api call");
-            // try {
-            // Sending student data using fetch POST method
-            //   const response = fetch(
-            //     // "https://zphs-school.vercel.app/new-enroll",
-            //     "http://localhost:1954/new-enroll",
-            //     {
-            //       method: "POST",
-            //       headers: {
-            //         "Content-Type": "application/json",
-            //       },
-            //       // body: JSON.stringify(student),
-            //       body: { sj: student },
-            //     }
-            //   );
-
-            //   console.log("response", response);
-            //   response.then((res) => {
-            //     console.log("res", res);
-            //     if (res?.status == 401) {
-            //       alert("Same details already enrolled");
-            //     }
-            //   });
-            //   if (!response.ok) {
-            //     alert("Error while enrollment");
-            //     // throw new Error("Failed to submit the form");
-            //     // return;
-            //   }
-
-            //   // window.history.back();
-            //   // window.location.href =
-            //   //   "https://zphs-school.vercel.app/enroll-list";
-            //   setShowList(true);
-            //   console.log("Form submitted successfully:");
-            //   alert("enrollment successfully!");
-            // } catch (error) {
-            //   console.error("Error:", error);
-            //   alert("Failed to enrollment");
-            // }
-
             fetch("https://zphs-school.vercel.app/new-enroll", {
               method: "POST",
               headers: {
@@ -270,8 +230,7 @@
               "Content-Type": "application/json",
             },
             credentials: "include",
-            // body: JSON.stringify(student),
-            body: {},
+            body: JSON.stringify({}),
           })
             .then((response) => response.json()) // Parse the JSON
             .then((data) => {
