@@ -95,7 +95,7 @@
         const [listData, setListData] = useState([]);
 
         useEffect(() => {
-          fetch("http://localhost:1954/all-enrolls", {
+          fetch("https://zphs-school.vercel.app/all-enrolls", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
