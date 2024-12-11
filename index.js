@@ -47,7 +47,7 @@ app.post("/new-enroll", async (req, res) => {
       father: req.body.father,
     });
     if (exstingUsers) {
-      res.status(402).send("Same details enrolled");
+      res.status(403).send("Same details enrolled");
     }
     const newEnroll = new Enroll(req.body);
     await newEnroll.save();
