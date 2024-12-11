@@ -164,12 +164,14 @@
                   body: JSON.stringify(student),
                 }
               );
-              console.log("responce", response);
+              response.then((e) => {
+                console.log("responce", e);
+              });
               alert(JSON.stringify(response));
-              if (!response.ok) {
-                throw new Error("Failed to submit the form");
-                return;
-              }
+              // if (!response.ok) {
+              //   throw new Error("Failed to submit the form");
+              //   return;
+              // }
 
               window.history.back();
               // window.location.href =
