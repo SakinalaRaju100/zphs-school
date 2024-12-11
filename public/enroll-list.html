@@ -145,18 +145,14 @@
               (student.fullName
                 .toLowerCase()
                 .includes(nameFilter.toLowerCase()) ||
-                student.father
-                  .toLowerCase()
-                  .includes(nameFilter.toLowerCase()) ||
-                student.gender
-                  .toLowerCase()
-                  .includes(nameFilter.toLowerCase()) ||
-                // student.profession
-                //   .toLowerCase()
-                //   .includes(nameFilter.toLowerCase()) ||
-                student.village
-                  .toLowerCase()
-                  .includes(nameFilter.toLowerCase())) &&
+              student.father.toLowerCase().includes(nameFilter.toLowerCase()) ||
+              student.gender.toLowerCase().includes(nameFilter.toLowerCase()) ||
+              student?.profession
+                ? student.profession
+                : "".toLowerCase().includes(nameFilter.toLowerCase()) ||
+                  student.village
+                    .toLowerCase()
+                    .includes(nameFilter.toLowerCase())) &&
               (batchYearFilter === "" || student.batchYear === batchYearFilter)
             );
           });
@@ -400,7 +396,9 @@
                         <TableCell>{student?.father}</TableCell>
                         <TableCell>{student?.gender}</TableCell>
                         <TableCell>{student?.phone}</TableCell>
-                        <TableCell>{student?.profession}</TableCell>
+                        <TableCell>
+                          {student?.profession ? student?.profession : ""}
+                        </TableCell>
                         <TableCell>{student?.village}</TableCell>
                         <TableCell>{student?.batchYear}</TableCell>
                       </TableRow>
