@@ -236,7 +236,7 @@
                         type="text"
                         value={nameFilter}
                         onChange={(e) => setNameFilter(e.target.value)}
-                        placeholder="Filter by surname, name, profession, or address..."
+                        placeholder="Filter by name, father, profession, gender or village..."
                         style={{
                           border: "none",
                           outline: "none",
@@ -284,7 +284,10 @@
                       </span>
                       <select
                         value={batchYearFilter}
-                        onChange={(e) => setBatchYearFilter(e.target.value)}
+                        onChange={(e) => {
+                          console.log("batchYearFilter", e.target.value);
+                          setBatchYearFilter(e.target.value);
+                        }}
                         style={{
                           border: "none",
                           outline: "none",
