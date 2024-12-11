@@ -318,15 +318,30 @@
                     <TableRow sx={{ bgcolor: "primary.main" }}>
                       <TableCell
                         sx={{
-                          // width: "100px",
                           color: "white",
                           fontWeight: "bold",
+                          backgroundColor: "primary.main",
                           position: "sticky",
                           left: 0,
-                          backgroundColor: "primary.main",
                           zIndex: 1,
                         }}
                       >
+                        No.
+                      </TableCell>
+                      {/*<TableCell
+                        sx={{
+                          // width: "100px",
+                          color: "white",
+                          fontWeight: "bold",
+                          backgroundColor: "primary.main",
+                          position: "sticky",
+                          left: 0,
+                          zIndex: 1,
+                        }}
+                      >
+                        Full Name
+                      </TableCell>*/}
+                      <TableCell sx={{ color: "white", fontWeight: "bold" }}>
                         Full Name
                       </TableCell>
                       <TableCell sx={{ color: "white", fontWeight: "bold" }}>
@@ -364,6 +379,7 @@
                       >
                         <TableCell
                           sx={{
+                            color: "white",
                             fontWeight: "bold",
                             position: "sticky",
                             left: 0,
@@ -371,8 +387,9 @@
                             zIndex: 1,
                           }}
                         >
-                          {student?.fullName}
+                          {ind + 1}
                         </TableCell>
+                        <TableCell>{student?.fullName}</TableCell>
                         <TableCell>{student?.father}</TableCell>
                         <TableCell>{student?.gender}</TableCell>
                         <TableCell>{student?.phone}</TableCell>
