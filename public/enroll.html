@@ -151,44 +151,47 @@
             Object.keys(errors).length === 0 &&
             Object.values(student).every((val) => val !== "")
           ) {
-            try {
-              // Sending student data using fetch POST method
-              const response = fetch(
-                "https://zphs-school.vercel.app/new-enroll",
-                {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(student),
-                }
-              );
-              console.log("responce", response);
-              alert(JSON.stringify(response));
-              if (!response.ok) {
-                throw new Error("Failed to submit the form");
-              }
+            alert("api call");
+            // try {
+            //   // Sending student data using fetch POST method
+            //   const response = fetch(
+            //     "https://zphs-school.vercel.app/new-enroll",
+            //     {
+            //       method: "POST",
+            //       headers: {
+            //         "Content-Type": "application/json",
+            //       },
+            //       body: JSON.stringify(student),
+            //     }
+            //   );
+            //   console.log("responce", response);
+            //   alert(JSON.stringify(response));
+            //   if (!response.ok) {
+            //     throw new Error("Failed to submit the form");
+            //   }
 
-              window.history.back();
-              // window.location.href =
-              //   "https://zphs-school.vercel.app/enroll-list";
-              console.log("Form submitted successfully:", response.json());
-              alert("Form submitted successfully!");
-            } catch (error) {
-              console.error("Error:", error);
-              alert("Failed to submit the form");
-            }
+            //   window.history.back();
+            //   // window.location.href =
+            //   //   "https://zphs-school.vercel.app/enroll-list";
+            //   console.log("Form submitted successfully:", response.json());
+            //   alert("Form submitted successfully!");
+            // } catch (error) {
+            //   console.error("Error:", error);
+            //   alert("Failed to submit the form");
+            // }
+          } else {
+            alert("some fileds missing");
           }
         };
 
         return (
           <div className="form-container">
             <h2>Student Information Form</h2>
-            {/* <form onSubmit={handleSubmit}>*/}
-            <form
+            <form onSubmit={handleSubmit}>
+              {/*  <form
               action="https://zphs-school.vercel.app/new-enroll"
               method="POST"
-            >
+            >*/}
               {/* Batch Year */}
               <FormControl fullWidth margin="normal">
                 <InputLabel>Batch Year</InputLabel>
