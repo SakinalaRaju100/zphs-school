@@ -43,7 +43,7 @@ app.post("/new-enroll", async (req, res) => {
   if (!req.body.father) {
     // res.redirect("https://zphs-school.vercel.app/same-details-enrolled.html");
 
-    return res.status(403).send("missing inputs");
+    return res.status(404).send(req.body);
   }
   try {
     // need to put condition to avaid dublicates
