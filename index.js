@@ -48,24 +48,23 @@ app.post("/new-enroll", async (req, res) => {
   }
   try {
     // need to put condition to avaid dublicates
-    // const exstingUsers = await Enroll.findOne(req.body);
+
     const exstingUsers = await Enroll.findOne({
       fullName: req.body.fullName,
       father: req.body.father,
       batchYear: req.body.batchYear,
     });
-    if (exstingUsers) {
-      // res.redirect("https://zphs-school.vercel.app/same-details-enrolled.html");
-
-      return res.status(403).send("Same details enrolled");
-    } else {
+    if (!exstingUsers) {
       const newEnroll = new Enroll(req.body);
       await newEnroll.save();
 
-      res.status(201).json({ message: "User created successfully" });
+      return res.status(201).send({ message: "User created successfully" });
       // res.redirect("https://zphs-school.vercel.app/enroll-list");
       // res.sendFile(path.join(__dirname, "public", "enroll-list.html"));
-      return;
+    } else {
+      // res.redirect("https://zphs-school.vercel.app/same-details-enrolled.html");
+
+      return res.status(401).send("Same details enrolled");
     }
   } catch (err) {
     res.status(500).json({ message: "Error creating user", error: err });

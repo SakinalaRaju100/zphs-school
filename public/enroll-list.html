@@ -214,8 +214,8 @@
               })
               .catch((error) => {
                 setShowList(false);
-                alert("catch");
-                console.error("Error occurred:", error);
+                alert("catch", error);
+                console.log("Error occurred:", error);
               });
           } else {
             alert("some fileds missing");
