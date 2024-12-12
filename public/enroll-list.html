@@ -208,14 +208,19 @@
               .then((response) => response.json())
               .then((data) => {
                 alert("fine");
+                alert(data);
+                alert(data.message);
 
                 // setShowList(true);
                 console.log("Response data:", data);
+                console.log("Response data1:", data.message);
+                console.log("Response data2:", data.status);
               })
               .catch((error) => {
                 // setShowList(false);
+                alert("catch", error);
+                alert(error.message);
                 console.log("Error occurred:", error);
-                alert("catch", JSON.stringify(error));
               });
           } else {
             alert("some fileds missing");
