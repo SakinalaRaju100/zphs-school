@@ -4124,28 +4124,66 @@
             <Dialog
               open={openSavineerModal}
               onClose={() => setOpenSavineerModal(false)}
-              // maxWidth="lg"
-              // fullWidth
+              maxWidth="md"
+              fullWidth
+              sx={{
+                "& .MuiDialog-paper": {
+                  margin: 2,
+                  width: "100%",
+                  maxWidth: "800px", // Limit maximum width
+                  height: { xs: "90vh", sm: "80vh", md: "90vh" }, // Responsive height
+                  maxHeight: "900px",
+                },
+              }}
             >
-              <Box
+              <DialogTitle
                 sx={{
                   display: "flex",
+                  justifyContent: "space-between",
                   alignItems: "center",
-                  justifyContent: "center",
-                  border: "1px solid #ccc", // Add a border
-                  borderRadius: "8px", // Rounded corners
-                  padding: "20px", // Inner padding
-                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow
-                  backgroundColor: "#fff", // Background color
-                  marginTop: "20px", // Space above the box
-                  width: "90%", // Set width to 90% of the parent container
-                  maxWidth: "800px", // Maximum width for larger screens
-                  height: "800px", // Allow height to adjust based on content
-                  minHeight: "300px", // Minimum height for comfort
                 }}
               >
-                <embed src="./my.pdf" width="100%" height="800px" />
-              </Box>
+                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                  Savineer Book
+                </Typography>
+                <IconButton onClick={() => setOpenSavineerModal(false)}>
+                  <span className="material-icons">close</span>
+                </IconButton>
+              </DialogTitle>
+
+              <DialogContent
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  p: { xs: 1, sm: 2, md: 3 },
+                }}
+              >
+                <Box
+                  sx={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    border: "1px solid #ccc",
+                    borderRadius: 2,
+                    overflow: "hidden",
+                  }}
+                >
+                  <embed
+                    src="./my.pdf"
+                    type="application/pdf"
+                    width="100%"
+                    height="100%"
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                      objectFit: "contain",
+                    }}
+                  />
+                </Box>
+              </DialogContent>
             </Dialog>
           </ThemeProvider>
         );
