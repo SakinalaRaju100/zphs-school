@@ -78,6 +78,9 @@ app.get("/enroll-form", (req, res) => {
 app.get("/enroll-list", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "enroll-list.html"));
 });
+app.get("/savineer-book", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "SavineerPdfViewer.html"));
+});
 // app.get("/form", (req, res) => {
 //   res.sendFile(path.join(__dirname, "public", "addStudentForm.html"));
 // });

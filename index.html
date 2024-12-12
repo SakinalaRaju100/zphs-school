@@ -22,18 +22,6 @@
         left: 20px;
         color: white;
       }
-
-      /* view pdf */
-      #pdf-container {
-        width: 90%;
-        margin: auto;
-        border: 1px solid #ccc;
-        overflow: auto;
-      }
-      canvas {
-        display: block;
-        margin: 10px auto;
-      }
     </style>
     <base href="." />
     <title>ZPHS Kunur</title>
@@ -798,7 +786,8 @@
           setOpenDonateModal(true);
         };
         const handleSavineerModal = () => {
-          setOpenSavineerModal(true);
+          window.location.href = "https://zphs-school.vercel.app/savineer-book";
+          // setOpenSavineerModal(true);
         };
 
         const handleCloseDonateModal = () => {
@@ -4154,7 +4143,7 @@
               </Box>
             </Dialog>
             {/* Savineer book need to do */}
-            <Dialog
+            {/*<Dialog
               open={openSavineerModal}
               onClose={() => setOpenSavineerModal(false)}
               maxWidth="md"
@@ -4192,9 +4181,9 @@
                   p: { xs: 1, sm: 2, md: 3 },
                 }}
               >
-                <p id="pdf-containers"></p>
+                <p>view pdf</p>
               </DialogContent>
-            </Dialog>
+            </Dialog>*/}
           </ThemeProvider>
         );
       }
@@ -4202,44 +4191,7 @@
       ReactDOM.render(<App />, document.getElementById("root"));
     </script>
   </head>
-  <p id="pdf-container"></p>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-  <script>
-    // Worker path
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js";
 
-    // URL of the PDF
-    const pdfUrl = "./my.pdf"; // Replace with your PDF file URL
-
-    // Fetch and render the PDF
-    const renderPDF = async () => {
-      const pdf = await pdfjsLib.getDocument(pdfUrl).promise;
-      const pdfContainer = document.getElementById("pdf-container");
-
-      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-        const page = await pdf.getPage(pageNum);
-        const viewport = page.getViewport({ scale: 1.5 });
-
-        // Create a canvas for each page
-        const canvas = document.createElement("canvas");
-        const context = canvas.getContext("2d");
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
-
-        // Render the page
-        const renderContext = {
-          canvasContext: context,
-          viewport: viewport,
-        };
-
-        await page.render(renderContext).promise;
-        pdfContainer.appendChild(canvas);
-      }
-    };
-
-    renderPDF().catch((error) => console.error("Error rendering PDF:", error));
-  </script>
   <body
     id="body"
     class="body"
