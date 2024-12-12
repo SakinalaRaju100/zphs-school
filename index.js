@@ -62,13 +62,16 @@ app.post("/new-enroll", async (req, res) => {
   }
 });
 
-app.get("/", (req, res) => {
+app.get("/wellcome", (req, res) => {
   res.send("Well come to school server..");
 });
 app.get("/test", (req, res) => {
   res.send("test");
 });
 // Route to serve form.html
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
 app.get("/enroll-form", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "enroll.html"));
 });
