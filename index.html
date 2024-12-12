@@ -2555,12 +2555,24 @@
                     About Us
                   </Typography>
 
-                  <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
+                  <Grid
+                    container
+                    spacing={{ xs: 2, sm: 3, md: 4 }}
+                    sx={{
+                      minHeight: {
+                        xs: "400px", // Minimum height for extra small screens
+                        sm: "500px", // Minimum height for small screens
+                        md: "600px", // Minimum height for medium and larger screens
+                      },
+                      height: "100%", // Ensure it takes full height of its container
+                    }}
+                  >
                     {/* School History */}
                     <Grid item xs={12} md={6}>
                       <Card
                         sx={{
                           // height: "100%",
+                          // height: { xs: 10, sm: 3, md: 4 },
                           display: "flex",
                           flexDirection: "column",
                           p: { xs: 2, sm: 2, md: 3 },
