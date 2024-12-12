@@ -55,7 +55,7 @@ app.post("/new-enroll", async (req, res) => {
 
       return res.status(201).send({ message: "User created successfully" });
     } else {
-      return res.status(401).send("Same details enrolled");
+      return res.status(202).send("Same details enrolled");
     }
   } catch (err) {
     res.status(500).json({ message: "Error creating user", error: err });
