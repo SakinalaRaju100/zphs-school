@@ -128,6 +128,9 @@
         const [listData, setListData] = useState([]);
         const [showList, setShowList] = useState(true);
         const [loading, setLoading] = useState(true);
+        const [selectedStudent, setSelectedStudent] = React.useState(null);
+        const [openStudentDetailsModal, setOpenStudentDetailsModal] =
+          React.useState(false);
 
         const [student, setStudent] = useState({
           fullName: "",
@@ -335,6 +338,9 @@
             return `${year}-${year + 1}`;
           });
           return years.reverse(); // Reverse to get the latest years first
+        };
+        const handleRowClick = (student) => {
+          console.log("student", student);
         };
 
         return (
@@ -558,7 +564,10 @@
                         {getFilteredlist().map((student, ind) => (
                           <TableRow
                             key={ind}
-                            // onClick={() => handleRowClick(student)}
+                            onClick={() => {
+                              setSelectedStudent(student);
+                              setOpenStudentDetailsModal(true);
+                            }}
                             sx={{
                               "&:nth-of-type(odd)": { bgcolor: "grey.50" },
                               "&:hover": { bgcolor: "grey.100" },
@@ -753,6 +762,121 @@
                   </div>
                 </form>
               </div>
+            )}
+            {/* Modal for Student Details*/}
+            {selectedStudent && (
+              <Dialog
+                open={openStudentDetailsModal}
+                onClose={() => setOpenStudentDetailsModal(false)}
+                // maxWidth="100px"
+                fullWidth
+              >
+                <Box sx={{ p: 3 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      mb: 3,
+                    }}
+                  >
+                    <Typography
+                      variant="h5"
+                      gutterBottom
+                      sx={{ fontWeight: "bold" }}
+                    >
+                      Student Details
+                    </Typography>
+                    <IconButton
+                      onClick={() => setOpenStudentDetailsModal(false)}
+                    >
+                      <span className="material-icons">close</span>
+                    </IconButton>
+                  </Box>
+                  {selectedStudent && (
+                    <Box>
+                      {/* Display student's photo in a circle */}
+                      <Box
+                        component="img"
+                        src={selectedStudent?.photo}
+                        alt={selectedStudent?.fullName}
+                        sx={{
+                          width: { xs: 60, sm: 80 }, // Responsive width
+                          height: { xs: 60, sm: 80 }, // Responsive height
+                          borderRadius: "50%",
+                          objectFit: "cover",
+                          mb: 2,
+                        }}
+                      />
+
+                      <Typography variant="body1">
+                        <strong>FullName:</strong> {selectedStudent.fullName}
+                      </Typography>
+                      <Typography variant="body1">
+                        <strong>Father:</strong> {selectedStudent.father}
+                      </Typography>
+
+                      <Typography variant="body1">
+                        <strong>Email:</strong> {selectedStudent.email}
+                      </Typography>
+                      <Typography variant="body1">
+                        <strong>Phone:</strong> {selectedStudent.phone}
+                      </Typography>
+                      <Typography variant="body1">
+                        <strong>Village:</strong> {selectedStudent.village}
+                      </Typography>
+                      <Typography variant="body1">
+                        <strong>Profession:</strong>{" "}
+                        {selectedStudent.profession}
+                      </Typography>
+                      <Typography variant="body1">
+                        <strong>Batch Year:</strong> {selectedStudent.batchYear}
+                      </Typography>
+                      {/* Buttons for email and call, resume */}
+                      {/*<Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: { xs: "column", sm: "row" },
+
+                          gap: 1,
+                        }}
+                      >
+                        <Button
+                          variant="outlined"
+                          startIcon={
+                            <span className="material-icons">email</span>
+                          }
+                          href={`mailto:${selectedStudent.email}`}
+                          sx={{ flex: 1 }} // Make buttons responsive
+                        >
+                          Email
+                        </Button>
+                        <Button
+                          variant="outlined"
+                          startIcon={
+                            <span className="material-icons">phone</span>
+                          }
+                          href={`tel:${selectedStudent.phone}`}
+                          sx={{ flex: 1 }} // Make buttons responsive
+                        >
+                          Call
+                        </Button>
+                        <Button
+                          variant="contained"
+                          href={selectedStudent.resume}
+                          target="_blank"
+                          startIcon={
+                            <span className="material-icons">description</span>
+                          }
+                          sx={{}} // Full width for the resume button
+                        >
+                          View Resume
+                        </Button>{" "}
+                      </Box>*/}
+                    </Box>
+                  )}
+                </Box>
+              </Dialog>
             )}
           </div>
         );
