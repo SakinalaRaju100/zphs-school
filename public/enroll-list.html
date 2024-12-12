@@ -98,6 +98,7 @@
       const StudentForm = () => {
         const [listData, setListData] = useState([]);
         const [showList, setShowList] = useState(true);
+        const [loading, setLoading] = useState(true);
 
         const [student, setStudent] = useState({
           fullName: "",
@@ -225,6 +226,7 @@
         };
 
         useEffect(() => {
+          setLoading(true);
           fetch("https://zphs-school.vercel.app/all-enrolls", {
             // fetch("http://localhost:1954/all-enrolls", {
             method: "POST",
@@ -237,8 +239,12 @@
             .then((response) => response.json()) // Parse the JSON
             .then((data) => {
               setListData(data);
+              setLoading(false);
             })
-            .catch((error) => console.error("Error loading JSON:", error));
+            .catch((error) => {
+              console.error("Error loading JSON:", error);
+              setLoading(false);
+            });
         }, []);
         const fetchListDate = () => {
           fetch("https://zphs-school.vercel.app/all-enrolls", {
@@ -304,7 +310,9 @@
 
         return (
           <div>
-            {showList ? (
+            {loading ? (
+              <div>Loading...</div>
+            ) : showList ? (
               <div className="form-container">
                 <Box sx={{ p: 3 }} className="box">
                   <Box
