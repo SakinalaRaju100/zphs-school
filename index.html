@@ -2680,7 +2680,7 @@
                   >
                     <img
                       src="./QRCode.jpg"
-                      alt="Donation QR Code"
+                      alt="Donation QR Code removed"
                       style={{
                         border: "2px solid",
                         borderColor: "primary.main",
@@ -4124,11 +4124,14 @@
             <Dialog
               open={openSavineerModal}
               onClose={() => setOpenSavineerModal(false)}
-              maxWidth="lg"
-              fullWidth
+              // maxWidth="lg"
+              // fullWidth
             >
               <Box
                 sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                   border: "1px solid #ccc", // Add a border
                   borderRadius: "8px", // Rounded corners
                   padding: "20px", // Inner padding
