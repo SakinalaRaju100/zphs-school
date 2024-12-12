@@ -52,24 +52,33 @@
         padding: 4px !important;
       }
 
-      /* Add this CSS for loading animation */
-      @keyframes pulse {
+      /* Center the loader */
+      .loader-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f9f9f9;
+      }
+
+      /* Loading spinner styles */
+      .loader {
+        border: 8px solid #f3f3f3; /* Light gray */
+        border-top: 8px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 1s linear infinite;
+      }
+
+      /* Keyframes for animation */
+      @keyframes spin {
         0% {
-          opacity: 0.7;
-        }
-        50% {
-          opacity: 1;
+          transform: rotate(0deg);
         }
         100% {
-          opacity: 0.7;
+          transform: rotate(360deg);
         }
-      }
-      .loading {
-        text-align: center;
-        font-size: 1.5rem;
-        color: #007bff;
-        margin-top: 20px;
-        animation: pulse 1.5s infinite; /* Apply the pulse animation */
       }
     </style>
   </head>
@@ -331,16 +340,8 @@
         return (
           <div>
             {loading ? (
-              <div
-                className="loading"
-                style={{
-                  textAlign: "center",
-                  fontSize: "1.5rem",
-                  color: "#007BFF",
-                  marginTop: "20px",
-                }}
-              >
-                Loading...
+              <div class="loader-container">
+                <div class="loader"></div>
               </div>
             ) : showList ? (
               <div className="form-container">
