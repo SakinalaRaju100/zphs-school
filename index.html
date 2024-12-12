@@ -682,7 +682,7 @@
 
         const getFilteredTeachers = () => {
           return teachersList.filter((teacher) => {
-            const matchesName = teacher.fullName
+            const matchesName = teacher.name
               .toLowerCase()
               .includes(teacherNameFilter.toLowerCase());
             return matchesName;
@@ -3243,7 +3243,7 @@
                             component="img"
                             height="240"
                             image={teacher.photo}
-                            alt={teacher.fullName}
+                            alt={teacher.name}
                             sx={{ objectFit: "cover" }}
                           />
                           <CardContent sx={{ flexGrow: 1 }}>
@@ -3252,23 +3252,8 @@
                               gutterBottom
                               sx={{ fontWeight: "bold" }}
                             >
-                              {teacher.fullName}
+                              {teacher.name}
                             </Typography>
-                            <Box
-                              sx={{
-                                bgcolor: "primary.light",
-                                color: "primary.dark",
-                                px: 2,
-                                py: 0.5,
-                                borderRadius: "15px",
-                                display: "inline-block",
-                                mb: 2,
-                              }}
-                            >
-                              <Typography variant="body2">
-                                {teacher.designation}
-                              </Typography>
-                            </Box>
 
                             <Box
                               sx={{
@@ -3295,68 +3280,6 @@
                                 </span>
                                 <Typography variant="body2">
                                   {teacher.subject}
-                                </Typography>
-                              </Box>
-
-                              <Box
-                                sx={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  gap: 1,
-                                }}
-                              >
-                                <span
-                                  className="material-icons"
-                                  style={{
-                                    fontSize: "18px",
-                                    color: "primary.main",
-                                  }}
-                                >
-                                  grade
-                                </span>
-                                <Typography variant="body2">
-                                  {teacher.qualification}
-                                </Typography>
-                              </Box>
-
-                              <Box
-                                sx={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  gap: 1,
-                                }}
-                              >
-                                <span
-                                  className="material-icons"
-                                  style={{
-                                    fontSize: "18px",
-                                    color: "primary.main",
-                                  }}
-                                >
-                                  timeline
-                                </span>
-                                <Typography variant="body2">
-                                  {teacher.experience}
-                                </Typography>
-                              </Box>
-                              <Box
-                                sx={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  gap: 1,
-                                }}
-                              >
-                                <span
-                                  className="material-icons"
-                                  style={{
-                                    fontSize: "18px",
-                                    color: "primary.main",
-                                  }}
-                                >
-                                  date_range
-                                </span>
-                                <Typography variant="body2">
-                                  {teacher.durationYear}
                                 </Typography>
                               </Box>
                             </Box>
