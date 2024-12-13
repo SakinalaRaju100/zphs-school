@@ -526,13 +526,19 @@
                             Full Name
                           </TableCell>
                           <TableCell
-                            sx={{ color: "white", fontWeight: "bold" }}
+                            sx={{
+                              color: "white",
+                              fontWeight: "bold",
+                            }}
                           >
                             Father
                           </TableCell>
 
                           <TableCell
-                            sx={{ color: "white", fontWeight: "bold" }}
+                            sx={{
+                              color: "white",
+                              fontWeight: "bold",
+                            }}
                           >
                             Gender
                           </TableCell>
@@ -768,8 +774,17 @@
               <Dialog
                 open={openStudentDetailsModal}
                 onClose={() => setOpenStudentDetailsModal(false)}
-                // maxWidth="100px"
                 fullWidth
+                maxWidth="sm"
+                sx={{
+                  "& .MuiDialogContent-root": {
+                    padding: "16px",
+                  },
+                  "& .MuiDialogTitle-root": {
+                    backgroundColor: "#1976d2",
+                    color: "white",
+                  },
+                }}
               >
                 <Box sx={{ p: 3 }}>
                   <Box
@@ -810,7 +825,7 @@
                       />
 
                       <Typography variant="body1">
-                        <strong>FullName:</strong> {selectedStudent.fullName}
+                        <strong>Full Name:</strong> {selectedStudent.fullName}
                       </Typography>
                       <Typography variant="body1">
                         <strong>Father:</strong> {selectedStudent.father}
@@ -832,47 +847,6 @@
                       <Typography variant="body1">
                         <strong>Batch Year:</strong> {selectedStudent.batchYear}
                       </Typography>
-                      {/* Buttons for email and call, resume */}
-                      {/*<Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: { xs: "column", sm: "row" },
-
-                          gap: 1,
-                        }}
-                      >
-                        <Button
-                          variant="outlined"
-                          startIcon={
-                            <span className="material-icons">email</span>
-                          }
-                          href={`mailto:${selectedStudent.email}`}
-                          sx={{ flex: 1 }} // Make buttons responsive
-                        >
-                          Email
-                        </Button>
-                        <Button
-                          variant="outlined"
-                          startIcon={
-                            <span className="material-icons">phone</span>
-                          }
-                          href={`tel:${selectedStudent.phone}`}
-                          sx={{ flex: 1 }} // Make buttons responsive
-                        >
-                          Call
-                        </Button>
-                        <Button
-                          variant="contained"
-                          href={selectedStudent.resume}
-                          target="_blank"
-                          startIcon={
-                            <span className="material-icons">description</span>
-                          }
-                          sx={{}} // Full width for the resume button
-                        >
-                          View Resume
-                        </Button>{" "}
-                      </Box>*/}
                     </Box>
                   )}
                 </Box>
