@@ -2048,7 +2048,7 @@
                         <Card
                           sx={{
                             display: "flex",
-                            flexDirection: "column",
+                            alignItems: "center",
                             transition: "all 0.3s ease",
                             backgroundColor: "primary.light",
                             color: "primary.contrastText",
@@ -2063,22 +2063,29 @@
                         >
                           <CardContent
                             sx={{
+                              flex: 1,
                               display: "flex",
-                              flexDirection: "column",
-                              justifyContent: "center",
-                              gap: 1,
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              gap: 2,
+                              p: 0,
                             }}
                           >
+                            {/* Title */}
                             <Typography
                               variant="h6"
-                              gutterBottom
                               sx={{
                                 fontWeight: "bold",
                                 textTransform: "uppercase",
+                                whiteSpace: "nowrap", // Prevent text wrapping
+                                overflow: "hidden", // Handle overflow
+                                textOverflow: "ellipsis",
                               }}
                             >
                               {item.title}
                             </Typography>
+
+                            {/* Date */}
                             <Typography
                               variant="subtitle2"
                               sx={{
@@ -2087,13 +2094,24 @@
                                 px: 2,
                                 py: 0.5,
                                 borderRadius: "8px",
-                                display: "inline-block",
-                                width: "fit-content",
+                                whiteSpace: "nowrap",
                               }}
                             >
                               {item.date}
                             </Typography>
-                            <Typography variant="body1" color="text.secondary">
+
+                            {/* Description */}
+                            <Typography
+                              variant="body1"
+                              color="text.secondary"
+                              sx={{
+                                flex: 1,
+                                textAlign: "right",
+                                whiteSpace: "nowrap",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                              }}
+                            >
                               {item.description}
                             </Typography>
                           </CardContent>
