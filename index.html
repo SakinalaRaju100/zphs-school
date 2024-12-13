@@ -2048,72 +2048,73 @@
                         <Card
                           sx={{
                             display: "flex",
-                            alignItems: "center",
+                            flexDirection: { xs: "column", sm: "row" },
                             transition: "all 0.3s ease",
-                            backgroundColor: "primary.light",
-                            color: "primary.contrastText",
-                            borderRadius: "12px",
-                            p: 2,
                             "&:hover": {
-                              transform: "translateY(-5px)",
-                              boxShadow: 4,
-                              backgroundColor: "primary.dark",
+                              transform: "translateY(-8px)",
+                              boxShadow: 6,
+                              "& .icon-container": {
+                                backgroundColor: "primary.dark",
+                              },
                             },
                           }}
                         >
+                          <CardMedia
+                            component="img"
+                            sx={{
+                              width: { xs: "100%", sm: 300 },
+                              height: { xs: 200, sm: "auto" },
+                            }}
+                            image={item.image}
+                            alt={item.title}
+                          />
                           <CardContent
                             sx={{
                               flex: 1,
                               display: "flex",
-                              alignItems: "center",
-                              justifyContent: "space-between",
-                              gap: 2,
-                              p: 0,
+                              flexDirection: "column",
+                              justifyContent: "center",
                             }}
                           >
-                            {/* Title */}
-                            <Typography
-                              variant="h6"
+                            <Box
                               sx={{
-                                fontWeight: "bold",
-                                textTransform: "uppercase",
-                                whiteSpace: "nowrap", // Prevent text wrapping
-                                overflow: "hidden", // Handle overflow
-                                textOverflow: "ellipsis",
+                                display: "flex",
+                                alignItems: "flex-start",
+                                gap: 2,
                               }}
                             >
-                              {item.title}
-                            </Typography>
-
-                            {/* Date */}
-                            <Typography
-                              variant="subtitle2"
-                              sx={{
-                                backgroundColor: "secondary.main",
-                                color: "white",
-                                px: 2,
-                                py: 0.5,
-                                borderRadius: "8px",
-                                whiteSpace: "nowrap",
-                              }}
-                            >
-                              {item.date}
-                            </Typography>
-
-                            {/* Description */}
-                            <Typography
-                              variant="body1"
-                              color="text.secondary"
-                              sx={{
-                                flex: 1,
-                                textAlign: "right",
-                                whiteSpace: "nowrap",
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
-                              }}
-                            >
-                              {item.description}
-                            </Typography>
+                              <Box>
+                                <Typography
+                                  variant="h6"
+                                  gutterBottom
+                                  sx={{ fontWeight: "bold" }}
+                                >
+                                  {item.title}
+                                </Typography>
+                                <Typography
+                                  variant="subtitle2"
+                                  color="primary"
+                                  gutterBottom
+                                  sx={{
+                                    mb: 2,
+                                    display: "inline-block",
+                                    backgroundColor: "primary.light",
+                                    color: "primary.dark",
+                                    px: 2,
+                                    py: 0.5,
+                                    borderRadius: "15px",
+                                  }}
+                                >
+                                  {item.date}
+                                </Typography>
+                                <Typography
+                                  variant="body1"
+                                  color="text.secondary"
+                                >
+                                  {item.description}
+                                </Typography>
+                              </Box>
+                            </Box>
                           </CardContent>
                         </Card>
                       </Grid>
