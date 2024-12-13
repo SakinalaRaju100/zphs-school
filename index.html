@@ -2048,73 +2048,54 @@
                         <Card
                           sx={{
                             display: "flex",
-                            flexDirection: { xs: "column", sm: "row" },
+                            flexDirection: "column",
                             transition: "all 0.3s ease",
+                            backgroundColor: "primary.light",
+                            color: "primary.contrastText",
+                            borderRadius: "12px",
+                            p: 2,
                             "&:hover": {
-                              transform: "translateY(-8px)",
-                              boxShadow: 6,
-                              "& .icon-container": {
-                                backgroundColor: "primary.dark",
-                              },
+                              transform: "translateY(-5px)",
+                              boxShadow: 4,
+                              backgroundColor: "primary.dark",
                             },
                           }}
                         >
-                          <CardMedia
-                            component="img"
-                            sx={{
-                              width: { xs: "100%", sm: 300 },
-                              height: { xs: 200, sm: "auto" },
-                            }}
-                            image={item.image}
-                            alt={item.title}
-                          />
                           <CardContent
                             sx={{
-                              flex: 1,
                               display: "flex",
                               flexDirection: "column",
                               justifyContent: "center",
+                              gap: 1,
                             }}
                           >
-                            <Box
+                            <Typography
+                              variant="h6"
+                              gutterBottom
                               sx={{
-                                display: "flex",
-                                alignItems: "flex-start",
-                                gap: 2,
+                                fontWeight: "bold",
+                                textTransform: "uppercase",
                               }}
                             >
-                              <Box>
-                                <Typography
-                                  variant="h6"
-                                  gutterBottom
-                                  sx={{ fontWeight: "bold" }}
-                                >
-                                  {item.title}
-                                </Typography>
-                                <Typography
-                                  variant="subtitle2"
-                                  color="primary"
-                                  gutterBottom
-                                  sx={{
-                                    mb: 2,
-                                    display: "inline-block",
-                                    backgroundColor: "primary.light",
-                                    color: "primary.dark",
-                                    px: 2,
-                                    py: 0.5,
-                                    borderRadius: "15px",
-                                  }}
-                                >
-                                  {item.date}
-                                </Typography>
-                                <Typography
-                                  variant="body1"
-                                  color="text.secondary"
-                                >
-                                  {item.description}
-                                </Typography>
-                              </Box>
-                            </Box>
+                              {item.title}
+                            </Typography>
+                            <Typography
+                              variant="subtitle2"
+                              sx={{
+                                backgroundColor: "secondary.main",
+                                color: "white",
+                                px: 2,
+                                py: 0.5,
+                                borderRadius: "8px",
+                                display: "inline-block",
+                                width: "fit-content",
+                              }}
+                            >
+                              {item.date}
+                            </Typography>
+                            <Typography variant="body1" color="text.secondary">
+                              {item.description}
+                            </Typography>
                           </CardContent>
                         </Card>
                       </Grid>
