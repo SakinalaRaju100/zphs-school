@@ -1067,7 +1067,13 @@
                         </span>
                         Teachers
                       </MenuItem>
-                      <MenuItem onClick={handleOpenStudentsModal}>
+                      {/* <MenuItem onClick={handleOpenStudentsModal}>*/}
+                      <MenuItem
+                        onClick={() => {
+                          window.location.href =
+                            "https://zphs-school.vercel.app/enroll-list";
+                        }}
+                      >
                         <span
                           className="material-icons"
                           style={{ marginRight: "8px" }}
@@ -1156,7 +1162,14 @@
                     <Button color="inherit" onClick={handleOpenTeachersModal}>
                       Teachers
                     </Button>
-                    <Button color="inherit" onClick={handleOpenStudentsModal}>
+                    {/*<Button color="inherit" onClick={handleOpenStudentsModal}>*/}
+                    <Button
+                      color="inherit"
+                      onClick={() => {
+                        window.location.href =
+                          "https://zphs-school.vercel.app/enroll-list";
+                      }}
+                    >
                       Students
                     </Button>
                     <Button
