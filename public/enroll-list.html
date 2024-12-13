@@ -779,6 +779,10 @@
                 sx={{
                   "& .MuiDialogContent-root": {
                     padding: "16px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center", // Vertical centering
                   },
                   "& .MuiDialogTitle-root": {
                     backgroundColor: "#1976d2",
@@ -792,12 +796,13 @@
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
+                      mb: 2,
                     }}
                   >
                     <Typography
                       variant="h5"
                       gutterBottom
-                      sx={{ fontWeight: "bold" }}
+                      sx={{ fontWeight: "bold", textAlign: "center", flex: 1 }}
                     >
                       Student Details
                     </Typography>
@@ -807,42 +812,39 @@
                       <span className="material-icons">close</span>
                     </IconButton>
                   </Box>
+
                   {selectedStudent && (
                     <Box
                       sx={{
-                        p: 2,
                         display: "flex",
                         flexDirection: "column",
-                        justifyContent: "center",
+                        alignItems: "center",
+                        textAlign: "center",
+                        gap: 2,
                       }}
                     >
                       {/* Display student's photo in a circle */}
                       <Box
                         component="img"
-                        // src={selectedStudent?.photo}
-                        // src={
-                        //   "https://www.vecteezy.com/png/47246741-graduate-student-woman-3d-illustration"
-                        // }
                         src={
                           "https://drive.google.com/thumbnail?id=1cPyIpmPL-n24bhuBv7XPzP2hXmS5E7FD&sz=w1000"
                         }
                         alt={selectedStudent?.fullName}
                         sx={{
-                          width: { xs: 60, sm: 100 }, // Responsive width
-                          height: { xs: 60, sm: 100 }, // Responsive height
+                          width: { xs: 60, sm: 100 },
+                          height: { xs: 60, sm: 100 },
                           borderRadius: "50%",
                           objectFit: "cover",
-                          mb: 2,
                         }}
                       />
 
+                      {/* Display student details */}
                       <Typography variant="body1">
                         <strong>Full Name:</strong> {selectedStudent.fullName}
                       </Typography>
                       <Typography variant="body1">
                         <strong>Father:</strong> {selectedStudent.father}
                       </Typography>
-
                       <Typography variant="body1">
                         <strong>Email:</strong> {selectedStudent.email}
                       </Typography>
