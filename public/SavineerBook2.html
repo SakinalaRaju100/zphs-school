@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PDF Viewer</title>
+    <title>Book Viewer</title>
     <style>
       #pdf-container {
         width: 90%;
@@ -68,10 +68,17 @@
       // Initial render
       const zoomSlider = document.getElementById("zoom-slider");
       const zoomPercentage = document.getElementById("zoom-percentage");
+      let count = 0;
       zoomSlider.addEventListener("input", () => {
-        const scale = parseFloat(zoomSlider.value);
-        zoomPercentage.textContent = `${(scale * 100).toFixed(0)}%`;
-        renderPDF(scale);
+        count++;
+        let scale = parseFloat(zoomSlider.value);
+        if (count == 1) {
+          setTimeout(() => {
+            zoomPercentage.textContent = `${(scale * 100).toFixed(0)}%`;
+            renderPDF(scale);
+            count = 1;
+          }, 1000);
+        }
       });
 
       renderPDF(parseFloat(zoomSlider.value)).catch((error) =>
