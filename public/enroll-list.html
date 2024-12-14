@@ -225,36 +225,39 @@
           console.log("student", student);
           console.log("errors", errors);
           event.preventDefault();
-
-          // Final validation before submission
-          if (
-            Object.keys(errors).length === 0 &&
-            Object.values(student).every((val) => val !== "")
-          ) {
-            fetch("https://zphs-school.vercel.app/new-enroll", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(student),
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                alert(data.message);
-                if (data.message != "Same details enrolled") {
-                  setShowList(true);
-                  fetchListDate();
-                }
+          try {
+            if (
+              Object.keys(errors).length === 0 &&
+              Object.values(student).every((val) => val !== "")
+            ) {
+              fetch("https://zphs-school.vercel.app/new-enroll", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(student),
               })
-              .catch((error) => {
-                // setShowList(false);
-                // alert("catch", error);
-                alert(error.message);
-                console.log("Error occurred:", error);
-              });
-          } else {
-            alert("some fileds missing");
+                .then((response) => response.json())
+                .then((data) => {
+                  alert(data.message);
+                  if (data.message != "Same details enrolled") {
+                    setShowList(true);
+                    fetchListDate();
+                  }
+                })
+                .catch((error) => {
+                  // setShowList(false);
+                  // alert("catch", error);
+                  alert(error.message);
+                  console.log("Error occurred:", error);
+                });
+            } else {
+              alert("some fileds missing");
+            }
+          } catch (er) {
+            console.log("err", err);
           }
+          // Final validation before submission
         };
 
         useEffect(() => {
