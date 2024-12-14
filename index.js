@@ -76,7 +76,7 @@ app.get("/enroll-list", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "enroll-list.html"));
 });
 app.get("/savineer-book", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "SavineerPdfViewer.html"));
+  res.sendFile(path.join(__dirname, "public", "SavineerBook.html"));
 });
 
 const port = process.env.PORT || 1954;
