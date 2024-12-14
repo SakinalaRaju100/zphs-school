@@ -36,7 +36,9 @@
 
         for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
           const page = await pdf.getPage(pageNum);
-          const viewport = page.getViewport({ scale: 1.5 });
+          // const viewport = page.getViewport({ scale: 1.0 });
+          const scale = window.innerWidth < 600 ? 0.4 : 1.0; // Adjust scale based on device width
+          const viewport = page.getViewport({ scale: scale });
 
           // Create a canvas for each page
           const canvas = document.createElement("canvas");
