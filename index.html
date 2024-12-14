@@ -578,10 +578,12 @@
               }
               elevation={0}
               sx={{
-                width: { sm: "210mm", md: "360mm", lg: "520mm" },
-                height: "70vh",
+                // width: { sm: "210mm", md: "360mm", lg: "520mm" },
+                height: "75vh",
                 position: "relative",
-                backgroundSize: "cover",
+                // backgroundSize: "auto",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: { xs: "100mm 150mm", lg: "200mm 300mm" },
                 backgroundPosition: "center",
                 backgroundImage: `url(${adCarouselImages[adCarouselIndex].image})`,
                 transition: "background-image 0.5s ease-in-out",
