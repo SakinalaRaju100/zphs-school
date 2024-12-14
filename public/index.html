@@ -22,6 +22,68 @@
         left: 20px;
         color: white;
       }
+
+      /* Common styles for all notifications */
+      .notification {
+        margin: 10px 0;
+        padding: 15px;
+        font-size: 16px;
+        border-radius: 5px;
+        display: flex;
+        align-items: left;
+        justify-content: left;
+        font-family: Arial, sans-serif;
+      }
+      .notification:hover {
+        margin: 11px 0;
+        padding: 15px;
+        font-size: 16px;
+        border-radius: 6px;
+        color: Gold;
+        background-color: #03a9f4; /* Light background on hover */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+        transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+      }
+
+      /* Success notification */
+      .success {
+        background-color: #4caf50;
+        color: white;
+      }
+
+      .success .icon {
+        margin-right: 10px;
+      }
+
+      /* Error notification */
+      .error {
+        background-color: #f44336;
+        color: white;
+      }
+
+      .error .icon {
+        margin-right: 10px;
+      }
+
+      /* Warning notification */
+      .warning {
+        background-color: #ff9800;
+        color: white;
+      }
+
+      .warning .icon {
+        margin-right: 10px;
+      }
+
+      /* General notification */
+      .general {
+        background-color: #03a9f4;
+        color: white;
+      }
+
+      .general .icon {
+        margin-right: 10px;
+      }
     </style>
     <base href="." />
     <title>ZPHS Kunur</title>
@@ -2064,8 +2126,29 @@
                   >
                     News & Updates
                   </Typography>
+                  <div>
+                    <div className="notification success">
+                      <span className="icon">✔</span> Success.. Everything is
+                      good!
+                    </div>
 
-                  <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
+                    <div className="notification error">
+                      <span className="icon">✘</span> Error.. Something has gone
+                      wrong!
+                    </div>
+
+                    <div className="notification warning">
+                      <span className="icon">⚠</span> Warning.. A little
+                      warning...
+                    </div>
+
+                    <div className="notification general">
+                      <span className="icon">ℹ</span> General.. Just a little
+                      information...
+                    </div>
+                  </div>
+
+                  {/*<Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
                     {newsUpdates.map((item, index) => (
                       <Grid item xs={12} key={index}>
                         <Card
@@ -2142,7 +2225,7 @@
                         </Card>
                       </Grid>
                     ))}
-                  </Grid>
+                  </Grid>*/}
                 </Container>
               </Box>
 
