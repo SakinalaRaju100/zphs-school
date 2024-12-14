@@ -20,8 +20,8 @@ app.use(express.static(path.join(__dirname, "public")));
 mongoose.connect(
   "mongodb+srv://sakinalaraju100:ObBamLOL3fm9X16z@cluster0.4bvgg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/school",
   {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
   }
 );
 
@@ -34,7 +34,7 @@ db.once("open", () => {
 app.post("/all-enrolls", async (req, res) => {
   try {
     const users = await Enroll.find();
-    res.status(200).json(users);
+    res.status(200).send(users);
   } catch (err) {
     res.status(500).json({ message: "Error fetching users", error: err });
   }
@@ -54,183 +54,30 @@ app.post("/new-enroll", async (req, res) => {
       const newEnroll = new Enroll(req.body);
       await newEnroll.save();
 
-      return res.status(201).send({ message: "User created successfully" });
+      return res.status(201).send({ message: "Enrollemnt successfully" });
     } else {
       return res.status(202).send({ message: "Same details enrolled" });
     }
   } catch (err) {
-    res.status(500).json({ message: "Error creating user", error: err });
+    res.status(500).json({ message: "Error in Enrollment", error: err });
   }
 });
 
 app.get("/wellcome", (req, res) => {
   res.send("Well come to school server..");
 });
-app.get("/test", (req, res) => {
-  res.send("test");
-});
+
 // Route to serve form.html
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
-app.get("/enroll-form", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "enroll.html"));
-});
+
 app.get("/enroll-list", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "enroll-list.html"));
 });
 app.get("/savineer-book", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "SavineerPdfViewer.html"));
 });
-// app.get("/form", (req, res) => {
-//   res.sendFile(path.join(__dirname, "public", "addStudentForm.html"));
-// });
-
-// Handle form submission
-// app.post("/en-submit", (req, res) => {
-//   const { fullName } = req.body;
-//   console.log("res.body", req.body);
-
-//   fs.readFile("enrolls.json", "utf8", (err, data) => {
-//     if (err) {
-//       console.error("Error reading file:", err);
-//       return;
-//     }
-
-//     // Parse the existing data, or create an empty array if the file is empty
-//     let existingData = [];
-//     try {
-//       existingData = JSON.parse(data);
-//     } catch (parseError) {
-//       // If the JSON is malformed or empty, it might fail to parse, so we initialize an empty array
-//       existingData = [];
-//     }
-
-//     // Add the new document to the existing data
-//     existingData.push(req.body);
-
-//     // Write the updated data back to the JSON file
-//     fs.writeFile(
-//       "enrolls.json",
-//       JSON.stringify(existingData, null, 2),
-//       "utf8",
-//       (err) => {
-//         if (err) {
-//           console.error("Error writing to file:", err);
-//           return;
-//         }
-//         console.log("Enroll successfully");
-//       }
-//     );
-//   });
-
-//   res.send(`Form submitted for ${fullName}.`);
-//   // res.redirect("https://sakinalaraju100.github.io/zphs-school/");
-// });
-// Handle form submission
-// app.post("/submit", (req, res) => {
-//   const { name } = req.body;
-//   console.log("res.body", req.body);
-
-//   fs.readFile("students.json", "utf8", (err, data) => {
-//     if (err) {
-//       console.error("Error reading file:", err);
-//       return;
-//     }
-
-//     // Parse the existing data, or create an empty array if the file is empty
-//     let existingData = [];
-//     try {
-//       existingData = JSON.parse(data);
-//     } catch (parseError) {
-//       // If the JSON is malformed or empty, it might fail to parse, so we initialize an empty array
-//       existingData = [];
-//     }
-
-//     // Add the new document to the existing data
-//     existingData.push(req.body);
-
-//     // Write the updated data back to the JSON file
-//     fs.writeFile(
-//       "students.json",
-//       JSON.stringify(existingData, null, 2),
-//       "utf8",
-//       (err) => {
-//         if (err) {
-//           console.error("Error writing to file:", err);
-//           return;
-//         }
-//         console.log("New document successfully added to file");
-//       }
-//     );
-//   });
-
-//   // res.send(`Form submitted for ${name}.`);
-//   res.redirect("https://sakinalaraju100.github.io/zphs-school/");
-// });
-// app.get("/get-enroll-list-json", (req, res) => {
-//   fs.readFile("enrolls.json", "utf8", (err, data) => {
-//     if (err) {
-//       console.error("Error reading file:", err);
-//       return;
-//     }
-
-//     // Parse the existing data, or create an empty array if the file is empty
-//     let existingData = [];
-//     try {
-//       existingData = JSON.parse(data);
-//       return res.send(existingData);
-//     } catch (parseError) {
-//       // If the JSON is malformed or empty, it might fail to parse, so we initialize an empty array
-//       existingData = [];
-//       return res.send(existingData);
-//     }
-//   });
-// });
-// app.get("/add-new-enroll-to-json", (req, res) => {
-//   fs.readFile("enrolls.json", "utf8", (err, data) => {
-//     if (err) {
-//       console.error("Error reading file:", err);
-//       return;
-//     }
-
-//     // Parse the existing data, or create an empty array if the file is empty
-//     let existingData = [];
-//     try {
-//       existingData = JSON.parse(data);
-//     } catch (parseError) {
-//       // If the JSON is malformed or empty, it might fail to parse, so we initialize an empty array
-//       existingData = [];
-//     }
-
-//     // Add the new document to the existing data
-//     existingData.push({
-//       time: new Date(),
-//       batchYear: "2015-2016",
-//       fullName: "Arjunsrihansh2",
-//       father: "Anitha",
-//       gender: "Male",
-//       email: "arjunsrihans@example.com",
-//       phone: "9908284578",
-//       village: "Garmilapally",
-//     });
-
-//     // Write the updated data back to the JSON file
-//     fs.writeFile(
-//       "enrolls.json",
-//       JSON.stringify(existingData, null, 2),
-//       "utf8",
-//       (err) => {
-//         if (err) {
-//           console.error("Error writing to file:", err);
-//           return;
-//         }
-//         console.log("New document successfully added to file");
-//         res.send("success");
-//       }
-//     );
-//   });
-// });
 
 const port = process.env.PORT || 1954;
 app.listen(port, () => {

@@ -46,7 +46,7 @@
     <script type="text/babel">
       let addData = [];
 
-      fetch("ads.json")
+      fetch("./ads.json")
         .then((response) => response.json()) // Parse the JSON
         .then((data) => {
           // console.log("data", data);
@@ -56,7 +56,7 @@
 
       // Students List
       let studentsList = [];
-      fetch("students.json")
+      fetch("./students.json")
         .then((response) => response.json()) // Parse the JSON
         .then((data) => {
           // console.log("data", data);
