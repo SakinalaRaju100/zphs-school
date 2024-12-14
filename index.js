@@ -23,6 +23,7 @@ try {
     {
       // useNewUrlParser: true,
       // useUnifiedTopology: true,
+      connectTimeoutMS: 30000,
     }
   );
 
