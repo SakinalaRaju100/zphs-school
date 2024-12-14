@@ -17,19 +17,23 @@ app.use(express.static(path.join(__dirname, "public")));
 // app.use(express.static(path.join(__dirname)));
 
 // new
-mongoose.connect(
-  "mongodb+srv://sakinalaraju100:ObBamLOL3fm9X16z@cluster0.4bvgg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/school",
-  {
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true,
-  }
-);
+try {
+  mongoose.connect(
+    "mongodb+srv://sakinalaraju100:ObBamLOL3fm9X16z@cluster0.4bvgg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/school",
+    {
+      // useNewUrlParser: true,
+      // useUnifiedTopology: true,
+    }
+  );
 
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", () => {
-  console.log("Connected to MongoDB");
-});
+  const db = mongoose.connection;
+  db.on("error", console.error.bind(console, "connection error:"));
+  db.once("open", () => {
+    console.log("Connected to MongoDB");
+  });
+} catch (er) {
+  console.log("er", er);
+}
 
 app.post("/all-enrolls", async (req, res) => {
   try {
