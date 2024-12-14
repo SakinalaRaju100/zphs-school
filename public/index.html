@@ -45,34 +45,45 @@
 
     <script type="text/babel">
       let addData = [];
-
-      fetch("./ads.json")
-        .then((response) => response.json()) // Parse the JSON
-        .then((data) => {
-          // console.log("data", data);
-          addData = data;
-        })
-        .catch((error) => console.error("Error loading JSON:", error));
+      try {
+        fetch("./ads.json")
+          .then((response) => response.json()) // Parse the JSON
+          .then((data) => {
+            // console.log("data", data);
+            addData = data;
+          })
+          .catch((error) => console.error("Error loading JSON:", error));
+      } catch (er) {
+        console.log("er", er);
+      }
 
       // Students List
       let studentsList = [];
-      fetch("./students.json")
-        .then((response) => response.json()) // Parse the JSON
-        .then((data) => {
-          // console.log("data", data);
-          studentsList = data;
-        })
-        .catch((error) => console.error("Error loading JSON:", error));
+      try {
+        fetch("./students.json")
+          .then((response) => response.json()) // Parse the JSON
+          .then((data) => {
+            // console.log("data", data);
+            studentsList = data;
+          })
+          .catch((error) => console.error("Error loading JSON:", error));
+      } catch (er) {
+        console.log("er", er);
+      }
 
       // Teachers List
       let teachersList = [];
-      fetch("./teachers.json")
-        .then((response) => response.json()) // Parse the JSON
-        .then((data) => {
-          // console.log("data", data);
-          teachersList = data;
-        })
-        .catch((error) => console.error("Error loading JSON:", error));
+      try {
+        fetch("./teachers.json")
+          .then((response) => response.json()) // Parse the JSON
+          .then((data) => {
+            // console.log("data", data);
+            teachersList = data;
+          })
+          .catch((error) => console.error("Error loading JSON:", error));
+      } catch (er) {
+        console.log("err", err);
+      }
 
       // const addData = [
       //   {
