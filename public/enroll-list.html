@@ -262,40 +262,51 @@
 
         useEffect(() => {
           setLoading(true);
-          fetch("https://zphs-school.vercel.app/all-enrolls", {
-            // fetch("http://localhost:1954/all-enrolls", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify({}),
-          })
-            .then((response) => response.json()) // Parse the JSON
-            .then((data) => {
-              setListData(data);
-              setLoading(false);
+          try {
+            fetch("https://zphs-school.vercel.app/all-enrolls", {
+              // fetch("http://localhost:1954/all-enrolls", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+              body: JSON.stringify({}),
             })
-            .catch((error) => {
-              console.error("Error loading JSON:", error);
-              setLoading(false);
-            });
+              .then((response) => response.json()) // Parse the JSON
+              .then((data) => {
+                setListData(data);
+                setLoading(false);
+              })
+              .catch((error) => {
+                console.error("Error loading JSON:", error);
+                setLoading(false);
+              });
+          } catch (er) {
+            setLoading(false);
+            console.log("er", er);
+            alert("catch");
+          }
         }, []);
         const fetchListDate = () => {
-          fetch("https://zphs-school.vercel.app/all-enrolls", {
-            // fetch("http://localhost:1954/all-enrolls", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify({}),
-          })
-            .then((response) => response.json()) // Parse the JSON
-            .then((data) => {
-              setListData(data);
+          try {
+            fetch("https://zphs-school.vercel.app/all-enrolls", {
+              // fetch("http://localhost:1954/all-enrolls", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+              body: JSON.stringify({}),
             })
-            .catch((error) => console.error("Error loading JSON:", error));
+              .then((response) => response.json()) // Parse the JSON
+              .then((data) => {
+                setListData(data);
+              })
+              .catch((error) => console.error("Error loading JSON:", error));
+          } catch (er) {
+            console.log("ar", ar);
+            alert("catch");
+          }
         };
 
         const [nameFilter, setNameFilter] = React.useState("");
