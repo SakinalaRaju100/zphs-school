@@ -646,7 +646,7 @@
         }, []); // Removed adCarouselIndex from dependency array
 
         return (
-          <Box sx={{ position: "relative", my: 4 }}>
+          <Box sx={{ position: "relative", my: 0 }}>
             <Paper
               square
               onClick={() =>
@@ -658,13 +658,13 @@
               sx={{
                 // width: { sm: "210mm", md: "360mm", lg: "520mm" },
                 // height: "300mm",
-                height: { xs: "100vh", lg: "300mm" },
+                height: { xs: "90vh", lg: "90vh" },
 
                 // height: "75vh",
                 position: "relative",
                 // backgroundSize: "auto",
                 backgroundRepeat: "no-repeat",
-                backgroundSize: { xs: "90mm 130mm", lg: "200mm 300mm" },
+                backgroundSize: { xs: "70mm ", lg: "90mm " },
                 backgroundPosition: "center",
                 backgroundImage: `url(${adCarouselImages[adCarouselIndex].image})`,
                 transition: "background-image 0.5s ease-in-out",
@@ -3824,25 +3824,6 @@
                 fullWidth
               >
                 <Box sx={{ p: 3 }}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      mb: 3,
-                    }}
-                  >
-                    <Typography
-                      variant="h5"
-                      gutterBottom
-                      sx={{ fontWeight: "bold" }}
-                    >
-                      Advertisements
-                    </Typography>
-                    <IconButton onClick={handleCloseAdsModal}>
-                      <span className="material-icons">close</span>
-                    </IconButton>
-                  </Box>
                   {/* Sample advertisements 
                   <Grid container spacing={2}>
                     {addData.map((el, ind) => {
@@ -3879,6 +3860,49 @@
                   </Grid>*/}
                   {/* Ads Carousel */}
                   <AdCarousel />
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      mb: 3,
+                      bgcolor: "primary.light", // Background color for the box
+                      p: 2, // Padding for the box
+                      borderRadius: 2, // Rounded corners
+                      boxShadow: 2, // Subtle shadow for depth
+                    }}
+                    onClick={handleCloseAdsModal}
+                  >
+                    <Typography
+                      variant="h5"
+                      gutterBottom
+                      sx={{
+                        fontWeight: "bold",
+                        color: "primary.main", // Text color
+                        fontSize: { xs: "14px", md: "25px" },
+                      }}
+                    >
+                      Souviner Advertisements
+                    </Typography>
+                    <IconButton>
+                      {/*<span className="material-icons" style={{ color: "red" }}>
+                        close
+                      </span>{" "}
+                       Close icon color */}
+                      <Typography
+                        variant="h5"
+                        gutterBottom
+                        sx={{
+                          fontWeight: "bold",
+                          color: "primary.main", // Text color
+                          ml: 1, // Margin left for spacing
+                          fontSize: { xs: "14px", md: "25px" },
+                        }}
+                      >
+                        Click To Close
+                      </Typography>
+                    </IconButton>
+                  </Box>
                 </Box>
               </Dialog>
             </Box>
