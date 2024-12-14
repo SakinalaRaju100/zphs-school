@@ -3229,7 +3229,7 @@
                       <TableBody>
                         {getFilteredStudents().map((student, ind) => (
                           <TableRow
-                            key={ind}
+                            key={student.id} // Changed from `ind` to `student.id` for uniqueness
                             onClick={() => handleRowClick(student)}
                             sx={{
                               "&:nth-of-type(odd)": { bgcolor: "grey.50" },
@@ -4070,7 +4070,10 @@
 
                 <Grid container spacing={4}>
                   {getFilteredNRIs().map((story, index) => (
-                    <Grid item xs={12} md={4} key={index}>
+                    <Grid item xs={12} md={4} key={story.name + index}>
+                      {" "}
+                      // Changed to use a combination of `story.name` and
+                      `index` for uniqueness
                       <Card
                         sx={{
                           height: "100%",
