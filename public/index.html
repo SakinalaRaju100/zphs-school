@@ -1226,9 +1226,9 @@
                   { title: "Achievements", onClick: handleClose },
                   { title: "Events & Exhibition", onClick: handleClose },
                   { title: "Rules & Regulations", onClick: handleClose },
-                ].map((item) => (
+                ].map((item, menuItemIdex) => (
                   <MenuItem
-                    key={item.title}
+                    key={menuItemIdex}
                     onClick={item.onClick}
                     sx={{
                       display: "flex",
@@ -1272,9 +1272,9 @@
                   },
                   { title: "Alumni Meetings", onClick: handleClose },
                   { title: "Alumni Events", onClick: handleClose },
-                ].map((item) => (
+                ].map((item, itemIdex) => (
                   <MenuItem
-                    key={item.title}
+                    key={itemIdex}
                     onClick={item.onClick}
                     sx={{
                       display: "flex",
@@ -1410,8 +1410,8 @@
                   </Box>
 
                   <Grid container spacing={3}>
-                    {studentsList.map((alumni) => (
-                      <Grid item xs={12} sm={6} md={4} key={alumni.id}>
+                    {studentsList.map((alumni, alumniIndex) => (
+                      <Grid item xs={12} sm={6} md={4} key={alumniIndex}>
                         <Card
                           sx={{
                             height: "100%",
@@ -3170,8 +3170,8 @@
                             }}
                           >
                             <option value="">All Batch Years</option>
-                            {getBatchYears().map((year) => (
-                              <option key={year} value={year}>
+                            {getBatchYears().map((year, yearIndex) => (
+                              <option key={yearIndex} value={year}>
                                 {year}
                               </option>
                             ))}
@@ -3342,8 +3342,8 @@
                   </Box>
 
                   <Grid container spacing={3}>
-                    {getFilteredTeachers().map((teacher) => (
-                      <Grid item xs={12} sm={6} md={4} key={teacher.id}>
+                    {getFilteredTeachers().map((teacher, teacherIndex) => (
+                      <Grid item xs={12} sm={6} md={4} key={teacherIndex}>
                         <Card
                           sx={{
                             height: "100%",
@@ -3588,9 +3588,9 @@
                           "Academic Calendar",
                           "Facilities",
                           "Staff Directory",
-                        ].map((link) => (
+                        ].map((link, linkindex) => (
                           <Typography
-                            key={link}
+                            key={linkindex}
                             variant="body2"
                             sx={{
                               display: "flex",
@@ -3666,9 +3666,9 @@
                             name: "LinkedIn",
                             link: "https://linkedin.com",
                           },
-                        ].map((social) => (
+                        ].map((social, socialindex) => (
                           <Button
-                            key={social.icon}
+                            key={socialindex}
                             href={social.link}
                             target="_blank"
                             startIcon={
@@ -3951,8 +3951,8 @@
                           page * rowsPerPage,
                           page * rowsPerPage + rowsPerPage
                         )
-                        .map((student) => (
-                          <TableRow key={student.id}>
+                        .map((student, ind) => (
+                          <TableRow key={student.ind}>
                             <TableCell>{student.name}</TableCell>
                             <TableCell>
                               {student.present ? "Yes" : "No"}
