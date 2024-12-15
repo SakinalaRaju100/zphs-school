@@ -11,9 +11,12 @@ const app = express();
 
 const corsOptions = {
   // origin: ["http://localhost:5173", "https://react-vite-app-seven.vercel.app/"], // Allow only this origin
-  origin: ["*"], // Allow only this origin
-  methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
+  // origin: ["*"], // Allow only this origin
+  // methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
   // credentials: true, // Allow cookies and authorization headers
+  origin: "https://react-vite-app-seven.vercel.app", // Replace with your Vite app domain
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"], // Allow required headers
 };
 
 app.use(cors(corsOptions));
