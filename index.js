@@ -6,8 +6,18 @@ const path = require("path");
 const fs = require("fs");
 const Enroll = require("./modals/Enroll");
 const app = express();
+// app.use(cors());
+// const cors = require('cors');
+
+const corsOptions = {
+  origin: ["http://localhost:5173", "https://react-vite-app-seven.vercel.app/"], // Allow only this origin
+  methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
+  credentials: true, // Allow cookies and authorization headers
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
-app.use(cors());
 
 // Middleware to parse form data (urlencoded)
 app.use(express.urlencoded({ extended: true }));

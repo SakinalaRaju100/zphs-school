@@ -396,22 +396,28 @@
       // Previous Donations
       const previousDonations = [
         {
-          name: "Ramesh Kumar",
-          amount: "₹25,000",
+          name: "From NRI's",
+          amount: 235116,
           date: "2023-10-15",
-          purpose: "Library Development",
+          purpose: "For Golden jubilee",
         },
         {
-          name: "Priya Reddy",
-          amount: "₹50,000",
+          name: "From Ads",
+          amount: 550000,
           date: "2023-09-20",
-          purpose: "Computer Lab",
+          purpose: "For Golden jubilee",
         },
         {
-          name: "Suresh Babu",
-          amount: "₹15,000",
+          name: "Batch wise Contributions",
+          amount: 629540,
           date: "2023-09-01",
-          purpose: "Sports Equipment",
+          purpose: "For Golden jubilee",
+        },
+        {
+          name: "Sri Aroori Ramesh garu",
+          amount: 300000,
+          date: "2023-09-01",
+          purpose: "For Golden jubilee",
         },
       ];
 
@@ -2932,21 +2938,50 @@
                     />
                   </Box>
 
-                  <Typography
-                    variant="h6"
+                  <Box
                     sx={{
-                      mb: 2,
-                      mt: 4,
-                      borderBottom: "2px solid",
-                      borderColor: "primary.main",
-                      pb: 1,
+                      display: "flex",
+                      justifyContent: "space-between",
+                      mb: 1,
                     }}
                   >
-                    Recent Donations
-                  </Typography>
-
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        mb: 2,
+                        mt: 4,
+                        borderBottom: "2px solid",
+                        borderColor: "primary.main",
+                        pb: 1,
+                      }}
+                    >
+                      Recent Donations
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        mb: 2,
+                        mt: 4,
+                        borderBottom: "2px solid",
+                        borderColor: "primary.main",
+                        color: "green",
+                        pb: 1,
+                      }}
+                    >
+                      Total:{" "}
+                      {new Intl.NumberFormat("en-IN", {
+                        style: "currency",
+                        currency: "INR",
+                      }).format(
+                        previousDonations.reduce(
+                          (acc, ele) => acc + ele.amount,
+                          0
+                        )
+                      )}
+                    </Typography>
+                  </Box>
                   <Box sx={{ maxHeight: "200px", overflow: "auto" }}>
-                    {previousDonations.map((donation, index) => (
+                    {previousDonations.reverse().map((donation, index) => (
                       <Box
                         key={index}
                         sx={{
@@ -2975,7 +3010,11 @@
                             color="primary"
                             sx={{ fontWeight: "bold" }}
                           >
-                            {donation.amount}
+                            {/* ₹{donation.amount}*/}
+                            {new Intl.NumberFormat("en-IN", {
+                              style: "currency",
+                              currency: "INR",
+                            }).format(donation.amount)}
                           </Typography>
                         </Box>
                         <Box
@@ -2988,9 +3027,9 @@
                           <Typography variant="body2">
                             {donation.purpose}
                           </Typography>
-                          <Typography variant="body2">
+                          {/*<Typography variant="body2">
                             {new Date(donation.date).toLocaleDateString()}
-                          </Typography>
+                          </Typography>*/}
                         </Box>
                       </Box>
                     ))}
@@ -3616,7 +3655,7 @@
                               "&:hover": { textDecoration: "underline" },
                             }}
                           >
-                            +91 1234567890
+                            +91 8985804256
                           </Typography>
                         </Box>
 
@@ -3632,14 +3671,36 @@
                           <Typography
                             variant="body2"
                             component="a"
-                            href="mailto:info@zphskunur.in"
+                            href="mailto:zphskunur1973@gmail.com"
                             sx={{
                               color: "white",
                               textDecoration: "none",
                               "&:hover": { textDecoration: "underline" },
                             }}
                           >
-                            info@zphskunur.in
+                            zphskunur1973@gmail.com
+                          </Typography>
+                        </Box>
+                        <Box
+                          sx={{ display: "flex", alignItems: "center", gap: 2 }}
+                        >
+                          <span
+                            className="material-icons"
+                            style={{ fontSize: "20px" }}
+                          >
+                            email
+                          </span>
+                          <Typography
+                            variant="body2"
+                            component="a"
+                            href="mailto:zphskunur.goldenjubilee@gmail.com"
+                            sx={{
+                              color: "white",
+                              textDecoration: "none",
+                              "&:hover": { textDecoration: "underline" },
+                            }}
+                          >
+                            zphskunur.goldenjubilee@gmail.com
                           </Typography>
                         </Box>
 
