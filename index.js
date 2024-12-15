@@ -13,7 +13,7 @@ const corsOptions = {
   // origin: ["http://localhost:5173", "https://react-vite-app-seven.vercel.app/"], // Allow only this origin
   origin: ["*"], // Allow only this origin
   methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
-  credentials: true, // Allow cookies and authorization headers
+  // credentials: true, // Allow cookies and authorization headers
 };
 
 app.use(cors(corsOptions));
