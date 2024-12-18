@@ -5,7 +5,6 @@ const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 const Enroll = require("./modals/Enroll");
-const Feedback = require("./modals/Feedback");
 const app = express();
 // app.use(cors());
 // const cors = require('cors');
@@ -15,7 +14,6 @@ const corsOptions = {
   // origin: ["*"], // Allow only this origin
   // methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
   origin: "https://react-vite-app-seven.vercel.app", // Replace with your Vite app domain
-  // origin: "http://localhost:5173", // Replace with your Vite app domain
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true, // Allow cookies and authorization headers
   // allowedHeaders: ["Content-Type", "Authorization"], // Allow required headers
@@ -68,24 +66,11 @@ app.post("/new-enroll", async (req, res) => {
     // need to put condition to avaid dublicates
     const exstingUsers = await Enroll.findOne({
       fullName: req.body.fullName,
-
+      father: req.body.father,
       batchYear: req.body.batchYear,
     });
     if (!exstingUsers) {
-      const existBatchData = await Enroll.find({
-        batchYear: req.body.batchYear,
-      });
-      const newEnroll = new Enroll({
-        ...req.body,
-        Code:
-          req?.body?.batchYear.slice(-4) +
-          "/" +
-          Number(existBatchData.length + 1),
-        flag: false,
-        enrolled: false,
-        familyMembers: 0,
-        new: true,
-      });
+      const newEnroll = new Enroll(req.body);
       await newEnroll.save();
 
       return res.status(201).send({ message: "Enrollemnt successfully" });
@@ -114,37 +99,6 @@ app.get("/savineer-book", (req, res) => {
 });
 app.get("/savineer-book2", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "SavineerBook2.html"));
-});
-app.post("/switch-turn", async (req, res) => {
-  const { Code, checked, familyMembers } = req.body;
-  try {
-    const user = await Enroll.findOneAndUpdate(
-      { Code: Code },
-      {
-        $set: {
-          enrolled: checked,
-          familyMembers: checked ? Number(familyMembers) : 0,
-        },
-      }
-    );
-    res
-      .status(201)
-      .send({ message: checked ? "Enrollment successful" : "Switched off" });
-  } catch (er) {
-    console.log("er", er);
-    res.status(500).send({ message: er?.message ?? "error" });
-  }
-});
-
-app.post("/save-feedbacks", async (req, res) => {
-  try {
-    const newFeedback = new Feedback(req.body);
-    await newFeedback.save();
-
-    res.status(200).send(newFeedback);
-  } catch (err) {
-    res.status(500).json({ message: "Error fetching users", error: err });
-  }
 });
 
 const port = process.env.PORT || 1954;
