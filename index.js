@@ -146,6 +146,19 @@ app.post("/save-feedbacks", async (req, res) => {
     res.status(500).json({ message: "Error fetching users", error: err });
   }
 });
+app.get("/get-feedbacks", async (req, res) => {
+  try {
+    const feedbacks = await Feedback.find();
+
+    res.status(200).send(feedbacks);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching users", error: err });
+  }
+});
+
+app.get("/feedbacks", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "feedbacks.html"));
+});
 
 const port = process.env.PORT || 1954;
 app.listen(port, () => {
