@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // new
 try {
   mongoose.connect(
-    "mongodb+srv://sakinalaraju100:ObBamLOL3fm9X16z@cluster0.4bvgg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/school",
+    "mongodb+srv://sakinalaraju100:ObBamLOL3fm9X16z@cluster0.4bvgg.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0?tls=true",
     {
       // useNewUrlParser: true,
       // useUnifiedTopology: true,
