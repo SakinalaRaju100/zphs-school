@@ -6,6 +6,7 @@ const path = require("path");
 const fs = require("fs");
 const Enroll = require("./modals/Enroll");
 const Feedback = require("./modals/Feedback");
+const Time = require("./modals/Time");
 const app = express();
 // app.use(cors());
 // const cors = require('cors');
@@ -158,6 +159,10 @@ app.get("/get-feedbacks", async (req, res) => {
 
 app.get("/feedbacks", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "feedbacks.html"));
+});
+app.get("/time", async (req, res) => {
+  const a = await Time.find();
+  res.send(a);
 });
 
 const port = process.env.PORT || 1954;
