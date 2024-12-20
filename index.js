@@ -16,7 +16,7 @@ const corsOptions = {
   // origin: ["*"], // Allow only this origin
   // methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
   // origin: "https://react-vite-app-seven.vercel.app", // Replace with your Vite app domain
-  origin: "www.zphskunur.in", // Replace with your Vite app domain
+  origin: "https://www.zphskunur.in/", // Replace with your Vite app domain
   // origin: "http://localhost:5173", // Replace with your Vite app domain
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true, // Allow cookies and authorization headers
