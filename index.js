@@ -7,16 +7,27 @@ const fs = require("fs");
 const Enroll = require("./modals/Enroll");
 const Feedback = require("./modals/Feedback");
 const Time = require("./modals/Time");
+const GNLoans = require("./modals/GNLoans");
+const GNUsers = require("./modals/GNUsers");
 const app = express();
 // app.use(cors());
 // const cors = require('cors');
+
+const allowedOrigins = ["https://www.zphskunur.in", "http://localhost:1954"];
 
 const corsOptions = {
   // origin: ["http://localhost:5173", "https://react-vite-app-seven.vercel.app/"], // Allow only this origin
   // origin: ["*"], // Allow only this origin
   // methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
   // origin: "https://react-vite-app-seven.vercel.app", // Replace with your Vite app domain
-  origin: "https://www.zphskunur.in", // Replace with your Vite app domain
+  // origin: ["https://www.zphskunur.in", "http://localhost:1954"], // Replace with your Vite app domain
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   // origin: "http://localhost:5173", // Replace with your Vite app domain
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true, // Allow cookies and authorization headers
@@ -24,6 +35,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+// app.use(cors());
 
 app.use(express.json());
 
@@ -164,6 +176,46 @@ app.get("/feedbacks", (req, res) => {
 app.get("/time", async (req, res) => {
   const a = await Time.find();
   res.send(a);
+});
+
+app.post("/add-new-gn-user", async (req, res) => {
+  const { user, passcode } = req.body;
+  const newGNUser = new GNUsers(req.body);
+  await newGNUser.save();
+  res.send(newGNUser);
+});
+app.post("/gn-login", async (req, res) => {
+  console.log("req.body", req.body);
+  const { user, passcode } = req.body;
+  try {
+    const userData = await GNUsers.findOne({
+      $or: [{ userId: user }, { mobile: user }, { email: user }],
+    });
+    console.log("userData", userData);
+
+    if (userData) {
+      res
+        .status(200)
+        .send({ success: "true", message: "login successful", data: userData });
+    } else {
+      res
+        .status(200)
+        .send({ success: "true", message: "User not found", data: null });
+    }
+  } catch (err) {
+    res.status(400).send({ success: "false", message: "failed", err });
+  }
+});
+app.post("/gn-loans", async (req, res) => {
+  const loans = await GNLoans.find();
+  res.send(loans);
+});
+
+app.post("/add-new-gn-loan", async (req, res) => {
+  const { user, passcode } = req.body;
+  const newGNLoan = new GNLoans(req.body);
+  await newGNLoan.save();
+  res.send(newGNLoan);
 });
 
 const port = process.env.PORT || 1954;
