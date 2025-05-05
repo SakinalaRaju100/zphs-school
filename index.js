@@ -13,7 +13,11 @@ const app = express();
 // app.use(cors());
 // const cors = require('cors');
 
-const allowedOrigins = ["https://www.zphskunur.in", "http://localhost:1954"];
+const allowedOrigins = [
+  "https://www.zphskunur.in",
+  "http://localhost:1954",
+  "http://127.0.0.1:5501",
+];
 
 const corsOptions = {
   // origin: ["http://localhost:5173", "https://react-vite-app-seven.vercel.app/"], // Allow only this origin
@@ -193,14 +197,19 @@ app.post("/gn-login", async (req, res) => {
     });
     console.log("userData", userData);
 
+    if (passcode != "123456") {
+      return res
+        .status(200)
+        .send({ success: false, message: "password not matched", data: null });
+    }
     if (userData) {
       res
         .status(200)
-        .send({ success: "true", message: "login successful", data: userData });
+        .send({ success: true, message: "login successful", data: userData });
     } else {
       res
         .status(200)
-        .send({ success: "true", message: "User not found", data: null });
+        .send({ success: false, message: "User not found", data: null });
     }
   } catch (err) {
     res.status(400).send({ success: "false", message: "failed", err });
