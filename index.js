@@ -17,6 +17,7 @@ const allowedOrigins = [
   "https://www.zphskunur.in",
   "http://localhost:1954",
   "http://127.0.0.1:5501",
+  "https://www.todaydigitalworld.com",
 ];
 
 const corsOptions = {
