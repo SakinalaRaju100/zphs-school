@@ -183,6 +183,15 @@ app.get("/time", async (req, res) => {
   res.send(a);
 });
 
+app.post("/get-gn-users", async (req, res) => {
+  // const { user, passcode } = req.body;
+  const allUsers = await GNUsers.find();
+
+  // res.send(newGNUser);
+  res
+    .status(200)
+    .send({ success: true, message: "login successful", data: allUsers ?? [] });
+});
 app.post("/add-new-gn-user", async (req, res) => {
   // const { user, passcode } = req.body;
   const newGNUser = new GNUsers(req.body);
