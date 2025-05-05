@@ -193,8 +193,38 @@ app.post("/get-gn-users", async (req, res) => {
     .send({ success: true, message: "login successful", data: allUsers ?? [] });
 });
 app.post("/add-new-gn-user", async (req, res) => {
-  // const { user, passcode } = req.body;
-  const newGNUser = new GNUsers(req.body);
+  const { user, passcode, role, mobile, email } = req.body;
+
+  const checkingUser = await GNUsers.findOne({
+    $or: [{ mobile: mobile }, { email: email }],
+  });
+
+  if (checkingUser) {
+    return res
+      .status(200)
+      .send({ success: false, message: "User exists", data: null });
+  }
+
+  const sameRoleUsers = await GNUsers.find({ role: role });
+
+  const userId =
+    role == "admin"
+      ? "GNA"
+      : role == "sales"
+      ? "GNS"
+      : role == "manager"
+      ? "GNM"
+      : role == "partner"
+      ? "GNP"
+      : role == "customer"
+      ? "GNC"
+      : role == "cluster"
+      ? "GNL"
+      : "GNX";
+  const newGNUser = new GNUsers({
+    ...req.body,
+    userId: userId + (sameRoleUsers.length + 1),
+  });
   await newGNUser.save();
   // res.send(newGNUser);
   res
