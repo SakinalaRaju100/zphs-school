@@ -184,8 +184,15 @@ app.get("/time", async (req, res) => {
 });
 
 app.post("/get-gn-users", async (req, res) => {
-  // const { user, passcode } = req.body;
-  const allUsers = await GNUsers.find();
+  const { user, passcode, need = "all" } = req.body;
+  let allUsers = [];
+  if (need == "customers") {
+    allUsers = await GNUsers.find({
+      role: "customer",
+    });
+  } else {
+    allUsers = await GNUsers.find();
+  }
 
   // res.send(newGNUser);
   res
