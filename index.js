@@ -267,7 +267,7 @@ app.post("/gn-login", async (req, res) => {
 });
 app.post("/gn-loans", async (req, res) => {
   const loans = await GNLoans.find();
-  res.send(loans);
+  res.send({ success: true, message: "Loans fetched successful", data: loans });
 });
 
 app.post("/add-new-gn-loan", async (req, res) => {
