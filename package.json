@@ -11,9 +11,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@vercel/blob": "^1.1.1",
+    "axios": "^1.10.0",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "mongoose": "^8.8.4",
+    "multer": "^2.0.1",
     "nodemon": "^3.1.7"
   }
 }

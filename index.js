@@ -12,6 +12,9 @@ const GNUsers = require("./modals/GNUsers");
 const app = express();
 // app.use(cors());
 
+const axios = require("axios");
+const multer = require("multer");
+
 const allowedOrigins = [
   "https://www.zphskunur.in",
   "http://localhost:1954",
@@ -275,6 +278,41 @@ app.post("/add-new-gn-loan", async (req, res) => {
   const newGNLoan = new GNLoans(req.body);
   await newGNLoan.save();
   res.send(newGNLoan);
+});
+
+const { put } = require("@vercel/blob");
+
+const upload = multer(); // Create multer instance to handle file uploads
+
+app.post("/upload", upload.single("file"), async (req, res) => {
+  try {
+    const file = req.file;
+    if (!file) return res.status(400).send("No file uploaded");
+
+    const { originalname, buffer, mimetype } = file;
+
+    const { url } = await put(`uploads/${originalname}`, buffer, {
+      access: "public",
+      token: "vercel_blob_rw_rVjJwbcVRINVDGxq_DfDbbDevayXXXCtPbFybk7v8XVDecA", // your actual token
+      addRandomSuffix: true, // to prevent name collision
+      contentType: mimetype,
+    });
+
+    res.status(200).json({ message: "Uploaded!", url });
+  } catch (error) {
+    console.error("Upload error:", error);
+    res.status(500).json({ error: "Upload failed", error });
+  }
+});
+
+app.get("/create-file-in-blob", async (req, res) => {
+  const { url } = await put("articles/blob2.txt", "Hello World!", {
+    access: "public",
+    token: "vercel_blob_rw_rVjJwbcVRINVDGxq_DfDbbDevayXXXCtPbFybk7v8XVDecA",
+    // allowOverwrite: true
+    addRandomSuffix: true,
+  });
+  res.send(url);
 });
 
 const port = process.env.PORT || 1954;
