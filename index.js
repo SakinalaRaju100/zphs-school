@@ -191,6 +191,7 @@ const jwt = require("jsonwebtoken");
 const SECRET_KEY = "your_secret_key";
 
 function authenticateToken(req, res, next) {
+  console.log("req.headers", req.headers);
   const goldnoontoken = req.headers["goldnoontoken"];
   if (!goldnoontoken) return res.sendStatus(401);
   jwt.verify(goldnoontoken, SECRET_KEY, (err, user) => {
@@ -321,8 +322,18 @@ app.post("/gn-loans", authenticateToken, async (req, res) => {
 });
 
 app.post("/add-new-gn-loan", async (req, res) => {
-  const { user, passcode } = req.body;
-  const newGNLoan = new GNLoans(req.body);
+  const { userId, loanType } = req.body;
+
+  let customerLoans = await GNLoans.find({
+    userId: userId,
+  });
+
+  const newGNLoan = new GNLoans({
+    loanId: "GN" + loanType + userId + customerLoans.length + 1,
+    userId,
+    loanStatus: "underVerification",
+    ...req.body,
+  });
   await newGNLoan.save();
   res.send(newGNLoan);
 });
