@@ -279,7 +279,7 @@ app.post("/gn-login", async (req, res) => {
     console.log("userData2", userData);
 
     // Generate JWT token
-    const goldnoontoken = jwt.sign(userData, SECRET_KEY, {
+    const goldnoontoken = jwt.sign({ userData }, SECRET_KEY, {
       expiresIn: "30d",
     });
 
