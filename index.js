@@ -188,17 +188,13 @@ app.get("/time", async (req, res) => {
 
 const jwt = require("jsonwebtoken");
 
-const SECRET_KEY = "your_secret_key"; // Keep it safe in .env file
+const SECRET_KEY = "your_secret_key";
 
 function authenticateToken(req, res, next) {
-  console.log("req.headers", req.headers);
   const goldnoontoken = req.headers["goldnoontoken"];
-  console.log("goldnoontoken", goldnoontoken);
   if (!goldnoontoken) return res.sendStatus(401);
-
   jwt.verify(goldnoontoken, SECRET_KEY, (err, user) => {
     if (err) return res.sendStatus(403); // Token expired/invalid
-    console.log("user", user);
     req.gnUserObj = user;
     next();
   });
@@ -216,9 +212,11 @@ app.post("/get-gn-users", async (req, res) => {
   }
 
   // res.send(newGNUser);
-  res
-    .status(200)
-    .send({ success: true, message: "login successful", data: allUsers ?? [] });
+  res.status(200).send({
+    success: true,
+    message: "users fetch successful",
+    data: allUsers ?? [],
+  });
 });
 app.post("/add-new-gn-user", async (req, res) => {
   const { user, passcode, role, mobile, email } = req.body;
@@ -253,11 +251,23 @@ app.post("/add-new-gn-user", async (req, res) => {
     ...req.body,
     userId: userId + (sameRoleUsers.length + 1),
   });
-  await newGNUser.save();
+  let SavednewGNUser = await newGNUser.save();
   // res.send(newGNUser);
-  res
-    .status(200)
-    .send({ success: true, message: "login successful", data: newGNUser });
+
+  delete SavednewGNUser._id;
+  delete SavednewGNUser.password;
+
+  // Generate JWT token
+  const goldnoontoken = jwt.sign({ ...SavednewGNUser }, SECRET_KEY, {
+    expiresIn: "30d",
+  });
+
+  res.status(200).send({
+    success: true,
+    message: "user added successful, and logging in...",
+    data: newGNUser,
+    goldnoontoken,
+  });
 });
 app.post("/gn-login", async (req, res) => {
   console.log("req.body", req.body);
@@ -266,7 +276,6 @@ app.post("/gn-login", async (req, res) => {
     const userData = await GNUsers.findOne({
       $or: [{ userId: user }, { mobile: user }, { email: user }],
     });
-    console.log("userData", userData);
 
     if (passcode != "123456") {
       return res
@@ -276,14 +285,11 @@ app.post("/gn-login", async (req, res) => {
 
     delete userData._id;
     delete userData.password;
-    console.log("userData2", userData);
 
     // Generate JWT token
     const goldnoontoken = jwt.sign({ ...userData }, SECRET_KEY, {
       expiresIn: "30d",
     });
-
-    console.log("goldnoontoken", goldnoontoken);
 
     if (userData) {
       res.status(200).send({
