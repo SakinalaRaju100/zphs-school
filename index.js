@@ -186,6 +186,24 @@ app.get("/time", async (req, res) => {
   res.send(a);
 });
 
+const jwt = require("jsonwebtoken");
+
+const SECRET_KEY = "your_secret_key"; // Keep it safe in .env file
+
+function authenticateToken(req, res, next) {
+  console.log("req.headers", req.headers);
+  const goldnoontoken = req.headers["goldnoontoken"];
+  console.log("goldnoontoken", goldnoontoken);
+  if (!goldnoontoken) return res.sendStatus(401);
+
+  jwt.verify(goldnoontoken, SECRET_KEY, (err, user) => {
+    if (err) return res.sendStatus(403); // Token expired/invalid
+    console.log("user", user);
+    req.gnUserObj = user;
+    next();
+  });
+}
+
 app.post("/get-gn-users", async (req, res) => {
   const { user, passcode, need = "all" } = req.body;
   let allUsers = [];
@@ -255,20 +273,36 @@ app.post("/gn-login", async (req, res) => {
         .status(200)
         .send({ success: false, message: "password not matched", data: null });
     }
+
+    delete userData._id;
+    delete userData.password;
+    console.log("userData2", userData);
+
+    // Generate JWT token
+    const goldnoontoken = jwt.sign(userData, SECRET_KEY, {
+      expiresIn: "30d",
+    });
+
+    console.log("goldnoontoken", goldnoontoken);
+
     if (userData) {
-      res
-        .status(200)
-        .send({ success: true, message: "login successful", data: userData });
+      res.status(200).send({
+        success: true,
+        message: "login successful",
+        data: userData,
+        goldnoontoken,
+      });
     } else {
       res
         .status(200)
         .send({ success: false, message: "User not found", data: null });
     }
   } catch (err) {
+    console.log("err", err);
     res.status(400).send({ success: "false", message: "failed", err });
   }
 });
-app.post("/gn-loans", async (req, res) => {
+app.post("/gn-loans", authenticateToken, async (req, res) => {
   const loans = await GNLoans.find();
   res.send({ success: true, message: "Loans fetched successful", data: loans });
 });
