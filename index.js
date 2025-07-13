@@ -324,12 +324,13 @@ app.post("/gn-loans", authenticateToken, async (req, res) => {
 app.post("/add-new-gn-loan", async (req, res) => {
   const { userId, loanType } = req.body;
 
+  let loanTypeShort = loanType == "Personal Loan" ? "PL" : "SL";
   let customerLoans = await GNLoans.find({
     userId: userId,
   });
 
   const newGNLoan = new GNLoans({
-    loanId: "GN" + loanType + userId + customerLoans.length + 1,
+    loanId: userId + loanTypeShort + (customerLoans.length + 1),
     userId,
     loanStatus: "underVerification",
     ...req.body,
