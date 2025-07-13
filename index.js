@@ -303,7 +303,14 @@ app.post("/gn-login", async (req, res) => {
   }
 });
 app.post("/gn-loans", authenticateToken, async (req, res) => {
-  const loans = await GNLoans.find();
+  let loans = [];
+  if (req.gnUserObj.role === "customer") {
+    loans = await GNLoans.find({
+      userId: req.gnUserObj.userId,
+    });
+  } else {
+    loans = await GNLoans.find();
+  }
   res.send({ success: true, message: "Loans fetched successful", data: loans });
 });
 
