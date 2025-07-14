@@ -9,6 +9,7 @@ const Feedback = require("./modals/Feedback");
 const Time = require("./modals/Time");
 const GNLoans = require("./modals/GNLoans");
 const GNUsers = require("./modals/GNUsers");
+const GNAdmin = require("./modals/GNAdmin");
 const app = express();
 // app.use(cors());
 
@@ -318,7 +319,11 @@ app.post("/gn-loans", authenticateToken, async (req, res) => {
   } else {
     loans = await GNLoans.find();
   }
-  res.send({ success: true, message: "Loans fetched successful", data: loans });
+  res.send({
+    success: true,
+    message: "Loans fetched successful",
+    data: loans.reverse(),
+  });
 });
 
 app.post("/add-new-gn-loan", async (req, res) => {
@@ -334,6 +339,7 @@ app.post("/add-new-gn-loan", async (req, res) => {
     userId,
     loanStatus: "underVerification",
     ...req.body,
+    notes: "NA",
   });
   await newGNLoan.save();
   res.send(newGNLoan);
@@ -372,6 +378,39 @@ app.get("/create-file-in-blob", async (req, res) => {
     addRandomSuffix: true,
   });
   res.send(url);
+});
+
+app.get("/gnadmin", authenticateToken, async (req, res) => {
+  const a = await GNAdmin.find();
+  res.send(a);
+});
+app.post("/get-all-branches", async (req, res) => {
+  const result = await GNAdmin.findOne({ section: "branches" });
+  res.status(200).send(result?.branches ?? []);
+});
+
+app.post("/add-new-gn-branch", async (req, res) => {
+  const existingBranches = await GNAdmin.findOne({ section: "branches" });
+
+  const branchCode =
+    "GNB" + (existingBranches ? existingBranches?.branches.length + 1 : 0);
+
+  const result = await GNAdmin.updateOne(
+    { section: "branches" },
+    {
+      $set: {
+        branches: [
+          ...(existingBranches?.branches ?? []),
+          { branchCode, ...req.body },
+        ],
+      },
+    }
+  );
+
+  res.status(200).send({
+    success: true,
+    message: "New Nranch added successfully",
+  });
 });
 
 const port = process.env.PORT || 1954;
