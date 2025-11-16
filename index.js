@@ -18,10 +18,11 @@ const multer = require("multer");
 
 const allowedOrigins = [
   "https://www.zphskunur.in",
-  "http://localhost:1954",
-  "http://127.0.0.1:5501",
-  "http://localhost:5173",
   "https://www.todaydigitalworld.com",
+  "http://localhost:1954",
+  "http://localhost:4500",
+  "http://localhost:5173",
+  "http://127.0.0.1:5501",
 ];
 
 const corsOptions = {
@@ -34,7 +35,8 @@ const corsOptions = {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error("Not allowed by CORS"));
+      callback(null, true);
+      // callback(new Error("Not allowed by CORS"));
     }
   },
   // origin: "http://localhost:5173", // Replace with your Vite app domain
@@ -409,7 +411,7 @@ app.post("/add-new-gn-branch", async (req, res) => {
 
   res.status(200).send({
     success: true,
-    message: "New Nranch added successfully",
+    message: "New branch added successfully",
   });
 });
 
