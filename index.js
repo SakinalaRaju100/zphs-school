@@ -189,6 +189,7 @@ app.get("/time", async (req, res) => {
   res.send(a);
 });
 
+// Goldnoon
 const jwt = require("jsonwebtoken");
 
 const SECRET_KEY = "your_secret_key";
@@ -198,7 +199,7 @@ function authenticateToken(req, res, next) {
   const goldnoontoken = req.headers["goldnoontoken"];
   if (!goldnoontoken) return res.sendStatus(401);
   jwt.verify(goldnoontoken, SECRET_KEY, (err, user) => {
-    if (err) return res.sendStatus(403); // Token expired/invalid
+    if (err) return res.sendStatus(403); // Token expired/invalid && need to add redirection to logout
     req.gnUserObj = user;
     next();
   });
@@ -312,6 +313,7 @@ app.post("/gn-login", async (req, res) => {
     res.status(400).send({ success: "false", message: "failed", err });
   }
 });
+
 app.post("/gn-loans", authenticateToken, async (req, res) => {
   let loans = [];
   if (req.gnUserObj.role === "customer") {
@@ -342,6 +344,14 @@ app.post("/add-new-gn-loan", async (req, res) => {
     loanStatus: "underVerification",
     ...req.body,
     notes: "NA",
+    actions: [
+      {
+        updatedBy: userId ?? "",
+        note: "applied",
+        loanStatus: "underVerification",
+        dateTime: new Date(),
+      },
+    ],
   });
   await newGNLoan.save();
   res.send(newGNLoan);
@@ -386,6 +396,7 @@ app.get("/gnadmin", authenticateToken, async (req, res) => {
   const a = await GNAdmin.find();
   res.send(a);
 });
+
 app.post("/get-all-branches", async (req, res) => {
   const result = await GNAdmin.findOne({ section: "branches" });
   res.status(200).send(result?.branches ?? []);
@@ -412,6 +423,33 @@ app.post("/add-new-gn-branch", async (req, res) => {
   res.status(200).send({
     success: true,
     message: "New branch added successfully",
+  });
+});
+
+app.post("/update-loan-status", async (req, res) => {
+  const loan = await GNLoans.findOne({ loanId: req.body.loanId });
+
+  const result = await GNLoans.updateOne(
+    { loanId: req.body.loanId },
+    {
+      $set: {
+        loanStatus: req.body.newLoanStatus ?? "NA",
+        actions: [
+          ...(loan?.actions ?? []),
+          {
+            updatedBy: req.body.userId ?? "",
+            note: req.body.notes ?? "",
+            loanStatus: req.body.newLoanStatus ?? "NA",
+            dateTime: new Date(),
+          },
+        ],
+      },
+    }
+  );
+
+  res.status(201).send({
+    success: true,
+    message: "Loan Status updated successfully",
   });
 });
 
