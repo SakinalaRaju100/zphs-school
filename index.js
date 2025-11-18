@@ -17,8 +17,8 @@ const axios = require("axios");
 const multer = require("multer");
 
 const allowedOrigins = [
-  "https://www.zphskunur.in",
   "https://www.todaydigitalworld.com",
+  "https://www.zphskunur.in",
   "http://localhost:1954",
   "http://localhost:4500",
   "http://localhost:5173",
@@ -35,8 +35,8 @@ const corsOptions = {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(null, true);
-      // callback(new Error("Not allowed by CORS"));
+      // callback(null, true);
+      callback(new Error("Not allowed by CORS"));
     }
   },
   // origin: "http://localhost:5173", // Replace with your Vite app domain
