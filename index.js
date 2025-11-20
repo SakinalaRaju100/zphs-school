@@ -321,14 +321,14 @@ app.post("/gn-loans", authenticateToken, async (req, res) => {
       userId: req.gnUserObj.userId,
     });
   } else {
-    loans = await GNLoans.find();
+    loans = await GNLoans.find().map((el) => {
+      return { ...el, update: true };
+    });
   }
   res.send({
     success: true,
     message: "Loans fetched successful",
-    data: loans.reverse().map((el) => {
-      return { ...el, update: true };
-    }),
+    data: loans.reverse(),
   });
 });
 
