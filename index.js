@@ -288,8 +288,8 @@ app.post("/gn-login", async (req, res) => {
         .send({ success: false, message: "password not matched", data: null });
     }
 
-    delete userData._id;
-    delete userData.password;
+    // delete userData._id;
+    // delete userData.password;
 
     // Generate JWT token
     const goldnoontoken = jwt.sign({ ...userData }, SECRET_KEY, {
@@ -326,7 +326,9 @@ app.post("/gn-loans", authenticateToken, async (req, res) => {
   res.send({
     success: true,
     message: "Loans fetched successful",
-    data: loans.reverse(),
+    data: loans.reverse().map((el) => {
+      return { ...el, update: true };
+    }),
   });
 });
 
@@ -427,19 +429,20 @@ app.post("/add-new-gn-branch", async (req, res) => {
 });
 
 app.post("/update-loan-status", async (req, res) => {
-  const loan = await GNLoans.findOne({ loanId: req.body.loanId });
+  const { loanId, userId, newLoanStatus, notes } = req.body;
+  const loan = await GNLoans.findOne({ loanId });
 
   const result = await GNLoans.updateOne(
-    { loanId: req.body.loanId },
+    { loanId: loanId },
     {
       $set: {
-        loanStatus: req.body.newLoanStatus ?? "NA",
+        loanStatus: newLoanStatus ?? "NA",
         actions: [
           ...(loan?.actions ?? []),
           {
-            updatedBy: req.body.userId ?? "",
-            note: req.body.notes ?? "",
-            loanStatus: req.body.newLoanStatus ?? "NA",
+            updatedBy: userId ?? "",
+            note: notes ?? "",
+            loanStatus: newLoanStatus ?? "NA",
             dateTime: new Date(),
           },
         ],
