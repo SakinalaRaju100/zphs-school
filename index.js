@@ -321,7 +321,8 @@ app.post("/gn-loans", authenticateToken, async (req, res) => {
       userId: req.gnUserObj.userId,
     });
   } else {
-    loans = await GNLoans.find().map((el) => {
+    let temp = (await GNLoans.find()) ?? [];
+    loans = temp.map((el) => {
       return { ...el, update: true };
     });
   }
