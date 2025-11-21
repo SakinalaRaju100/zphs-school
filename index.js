@@ -319,9 +319,9 @@ app.post("/gn-loans", authenticateToken, async (req, res) => {
   if (req.gnUserObj.role === "customer") {
     loans = await GNLoans.find({
       userId: req.gnUserObj.userId,
-    });
+    }).lean();
   } else {
-    let temp = (await GNLoans.find()) ?? [];
+    let temp = (await GNLoans.find().lean()) ?? [];
     loans = temp.map((el) => {
       return { ...el, update: true };
     });
