@@ -430,26 +430,75 @@ app.post("/add-new-gn-branch", async (req, res) => {
 });
 
 app.post("/update-loan-status", async (req, res) => {
-  const { loanId, userId, newLoanStatus, notes } = req.body;
+  const {
+    loanId,
+    userId,
+    newLoanStatus,
+    notes,
+    approvedLoanDetails = {},
+    loanDisbursedDetails = {},
+    emiDetails = {},
+  } = req.body;
   const loan = await GNLoans.findOne({ loanId });
-
-  const result = await GNLoans.updateOne(
-    { loanId: loanId },
-    {
-      $set: {
-        loanStatus: newLoanStatus ?? "NA",
-        actions: [
-          ...(loan?.actions ?? []),
-          {
-            updatedBy: userId ?? "",
-            note: notes ?? "",
-            loanStatus: newLoanStatus ?? "NA",
-            dateTime: new Date(),
-          },
-        ],
-      },
-    }
-  );
+  let result;
+  if (newLoanStatus == "approved") {
+    result = await GNLoans.updateOne(
+      { loanId: loanId },
+      {
+        $set: {
+          loanStatus: newLoanStatus ?? "NA",
+          actions: [
+            ...(loan?.actions ?? []),
+            {
+              updatedBy: userId ?? "",
+              note: notes ?? "",
+              loanStatus: newLoanStatus ?? "NA",
+              dateTime: new Date(),
+              approvedLoanDetails,
+            },
+          ],
+        },
+      }
+    );
+  } else if (newLoanStatus == "disbursing") {
+    result = await GNLoans.updateOne(
+      { loanId: loanId },
+      {
+        $set: {
+          loanStatus: newLoanStatus ?? "NA",
+          actions: [
+            ...(loan?.actions ?? []),
+            {
+              updatedBy: userId ?? "",
+              note: notes ?? "",
+              loanStatus: newLoanStatus ?? "NA",
+              dateTime: new Date(),
+              loanDisbursedDetails,
+              emiDetails,
+            },
+          ],
+        },
+      }
+    );
+  } else {
+    result = await GNLoans.updateOne(
+      { loanId: loanId },
+      {
+        $set: {
+          loanStatus: newLoanStatus ?? "NA",
+          actions: [
+            ...(loan?.actions ?? []),
+            {
+              updatedBy: userId ?? "",
+              note: notes ?? "",
+              loanStatus: newLoanStatus ?? "NA",
+              dateTime: new Date(),
+            },
+          ],
+        },
+      }
+    );
+  }
 
   res.status(201).send({
     success: true,
