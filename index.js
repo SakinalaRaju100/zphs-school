@@ -454,9 +454,9 @@ app.post("/update-loan-status", async (req, res) => {
               note: notes ?? "",
               loanStatus: newLoanStatus ?? "NA",
               dateTime: new Date(),
-              approvedLoanDetails,
             },
           ],
+          approvedLoanDetails,
         },
       }
     );
@@ -473,10 +473,10 @@ app.post("/update-loan-status", async (req, res) => {
               note: notes ?? "",
               loanStatus: newLoanStatus ?? "NA",
               dateTime: new Date(),
-              loanDisbursedDetails,
-              emiDetails,
             },
           ],
+          loanDisbursedDetails,
+          emiDetails,
         },
       }
     );
