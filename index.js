@@ -87,7 +87,7 @@ app.post("/all-enrolls", async (req, res) => {
 });
 
 app.post("/new-enroll", async (req, res) => {
-  console.log("req.body", req.body);
+  // console.log("req.body", req.body);
 
   try {
     // need to put condition to avaid dublicates
@@ -195,7 +195,7 @@ const jwt = require("jsonwebtoken");
 const SECRET_KEY = "your_secret_key";
 
 function authenticateToken(req, res, next) {
-  console.log("req.headers", req.headers);
+  // console.log("req.headers", req.headers);
   const goldnoontoken = req.headers["goldnoontoken"];
   if (!goldnoontoken) return res.sendStatus(401);
   jwt.verify(goldnoontoken, SECRET_KEY, (err, user) => {
@@ -275,7 +275,7 @@ app.post("/add-new-gn-user", async (req, res) => {
   });
 });
 app.post("/gn-login", async (req, res) => {
-  console.log("req.body", req.body);
+  // console.log("req.body", req.body);
   const { user, passcode } = req.body;
   try {
     const userData = await GNUsers.findOne({
