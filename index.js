@@ -255,7 +255,7 @@ app.post("/add-new-gn-user", async (req, res) => {
   const newGNUser = new GNUsers({
     ...req.body,
     userId: userId + (sameRoleUsers.length + 1),
-    branchCode: "",
+    branchCode: req.body?.branchCode ?? "",
   });
   let SavednewGNUser = await newGNUser.save();
   // res.send(newGNUser);
