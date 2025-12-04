@@ -361,6 +361,7 @@ app.post("/add-new-gn-loan", async (req, res) => {
 });
 
 const { put } = require("@vercel/blob");
+const { stringify } = require("querystring");
 
 const upload = multer(); // Create multer instance to handle file uploads
 
@@ -400,9 +401,66 @@ app.get("/gnadmin", authenticateToken, async (req, res) => {
   res.send(a);
 });
 
-app.post("/get-all-branches", async (req, res) => {
-  const result = await GNAdmin.findOne({ section: "branches" });
-  res.status(200).send(result?.branches ?? []);
+app.post("/get-all-branches", authenticateToken, async (req, res) => {
+  console.log("reqgnUserObj", req.gnUserObj.role);
+  if (req.gnUserObj.role == "admin") {
+    const result = await GNAdmin.findOne({ section: "branches" });
+    res.status(200).send(result?.branches ?? []);
+  } else {
+    const result = await GNAdmin.findOne({ section: "branches" });
+    res
+      .status(200)
+      .send(
+        result?.branches.filter(
+          (e) => e.branchCode == req.gnUserObj.branchCode
+        ) ?? []
+      );
+  }
+});
+
+app.post("/getNonBranchTaggedMembers", async (req, res) => {
+  console.log("membersst");
+  const members = await GNUsers.find({
+    branchCode: "",
+    // role: { ne: "customer" },
+    role: { $ne: "customer" },
+  });
+  res.status(200).send(members);
+});
+app.post("/getBranchMembers", async (req, res) => {
+  console.log("req.body", req.body);
+  const { branchCode } = req.body;
+  const branchMembers = await GNUsers.find({
+    branchCode: String(branchCode),
+    role: { $ne: "customer" },
+  });
+  res.status(200).send(branchMembers);
+});
+app.post("/updateMemberBranch", async (req, res) => {
+  console.log("req.body", req.body);
+  const { userId, branchCode } = req.body;
+  const user = await GNUsers.updateOne(
+    { userId: String(userId) },
+    {
+      $set: {
+        branchCode: branchCode ?? null,
+      },
+    }
+  );
+  res.status(201).send("Member Branch updated successfully");
+});
+app.post("/untagMemberBranch", async (req, res) => {
+  console.log("req.body", req.body);
+  const { userId } = req.body;
+  const user = await GNUsers.updateOne(
+    { userId: String(userId) },
+    {
+      $set: {
+        branchCode: "",
+      },
+    }
+  );
+  res.status(201).send("Member Branch Untagged successfully");
 });
 
 app.post("/add-new-gn-branch", async (req, res) => {
