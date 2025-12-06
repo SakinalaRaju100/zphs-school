@@ -276,14 +276,18 @@ app.post("/add-new-gn-user", async (req, res) => {
   });
 });
 app.post("/gn-login", async (req, res) => {
-  // console.log("req.body", req.body);
+  console.log("req.body", req.body);
   const { user, passcode } = req.body;
   try {
     const userData = await GNUsers.findOne({
       $or: [{ userId: user }, { mobile: user }, { email: user }],
     });
 
-    if (passcode != "123456") {
+    console.log("userData", userData);
+
+    if (passcode == "123456" || passcode == userData?.password) {
+      console.log("login");
+    } else {
       return res
         .status(200)
         .send({ success: false, message: "password not matched", data: null });
@@ -562,6 +566,38 @@ app.post("/update-loan-status", async (req, res) => {
   res.status(201).send({
     success: true,
     message: "Loan Status updated successfully",
+  });
+});
+
+app.post("/addEMIPayment", async (req, res) => {
+  console.log("req.body", req.body);
+  const { loanId, emiIndex, value } = req.body;
+  const loan = await GNLoans.findOne({ loanId });
+  console.log("loan?.emiDetails?.emiData", loan?.emiDetails?.emiData);
+
+  const oldEmiDetails = loan?.emiDetails;
+  const newEmiData = loan?.emiDetails?.emiData.map((e, ei) => {
+    if (ei == emiIndex) {
+      return { ...e, status: value, updatedOn: new Date() };
+    } else {
+      return e;
+    }
+  });
+
+  // const existingBranches = await GNAdmin.findOne({ section: "branches" });
+  // const branchCode =
+  //   "GNB" + (existingBranches ? existingBranches?.branches.length + 1 : 0);
+  const result = await GNLoans.updateOne(
+    { loanId },
+    {
+      $set: {
+        emiDetails: { ...loan?.emiDetails, emiData: newEmiData },
+      },
+    }
+  );
+  res.status(201).send({
+    success: true,
+    message: "Added Emi Successfully",
   });
 });
 
