@@ -276,11 +276,11 @@ app.post("/add-new-gn-user", async (req, res) => {
   });
 });
 app.post("/gn-login", async (req, res) => {
-  console.log("req.body", req.body);
   const { user, passcode } = req.body;
+  console.log("req.body", req.body);
   try {
     const userData = await GNUsers.findOne({
-      $or: [{ userId: user }, { mobile: user }, { email: user }],
+      $or: [{ userId: user.toUpperCase() }, { mobile: user }, { email: user }],
     });
 
     console.log("userData", userData);
@@ -341,7 +341,16 @@ app.post("/gn-loans", authenticateToken, async (req, res) => {
 app.post("/add-new-gn-loan", async (req, res) => {
   const { userId, loanType } = req.body;
 
-  let loanTypeShort = loanType == "Personal Loan" ? "PL" : "SL";
+  let loanTypeShort =
+    loanType == "Personal Loan"
+      ? "PL"
+      : loanType == "Business Loan"
+      ? "BL"
+      : loanType == "Home Loan"
+      ? "HL"
+      : loanType == "Vehicle Loan"
+      ? "VL"
+      : "L";
   let customerLoans = await GNLoans.find({
     userId: userId,
   });
@@ -367,6 +376,7 @@ app.post("/add-new-gn-loan", async (req, res) => {
 
 const { put } = require("@vercel/blob");
 const { stringify } = require("querystring");
+const CallingData = require("./modals/CallingData");
 
 const upload = multer(); // Create multer instance to handle file uploads
 
@@ -599,6 +609,57 @@ app.post("/addEMIPayment", async (req, res) => {
     success: true,
     message: "Added Emi Successfully",
   });
+});
+
+// app.post("/addCallingData", async (req, res) => {
+//   console.log("req.body", req.body);
+//   const {} = req.body;
+//   try {
+//     const newCallingData = new CallingData(req.body);
+//     await newCallingData.save();
+//     res.status(200).send(newCallingData);
+//   } catch (err) {
+//     res.status(500).json({ message: "Error fetching users", error: err });
+//   }
+// });
+app.post("/getCallingData", async (req, res) => {
+  console.log("req.body", req.body);
+  const {} = req.body;
+  try {
+    const callingData = await CallingData.find();
+    res.status(200).send(callingData);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching users", error: err });
+  }
+});
+app.post("/addCallingData", async (req, res) => {
+  console.log("req.body", req.body);
+  const {
+    mobile,
+    fullName,
+    feedback = "normal",
+    schedule = null,
+    notes = "",
+    lastUpdateBy = "",
+  } = req.body;
+  try {
+    const result = await CallingData.findOneAndUpdate(
+      { mobile: mobile },
+      {
+        $set: {
+          fullName: fullName,
+          feedback: feedback,
+          notes: notes,
+          schedule: schedule,
+          lastUpdateBy: lastUpdateBy,
+        },
+      },
+      { upsert: true }
+    );
+    res.status(200).send(result);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching users", error: err });
+  }
 });
 
 const port = process.env.PORT || 1954;
