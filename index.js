@@ -249,6 +249,8 @@ app.post("/add-new-gn-user", async (req, res) => {
       ? "GNP"
       : role == "customer"
       ? "GNC"
+      : role == "telecaller"
+      ? "GNT"
       : role == "cluster"
       ? "GNL"
       : "GNX";
