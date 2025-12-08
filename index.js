@@ -325,12 +325,27 @@ app.post("/gn-loans", authenticateToken, async (req, res) => {
     loans = await GNLoans.find({
       userId: req.gnUserObj.userId,
     }).lean();
+  } else if (
+    req.gnUserObj.role === "manager" ||
+    req.gnUserObj.role === "sales" ||
+    req.gnUserObj.role === "partner" ||
+    req.gnUserObj.role === "telecaller"
+  ) {
+    loans = await GNLoans.find({
+      branchCode: req.gnUserObj.branchCode,
+    }).lean();
+  } else if (req.gnUserObj.role === "admin") {
+    let temp = (await GNLoans.find().lean()) ?? [];
+    loans = temp.map((el) => {
+      return { ...el, update: true };
+    });
   } else {
     let temp = (await GNLoans.find().lean()) ?? [];
     loans = temp.map((el) => {
       return { ...el, update: true };
     });
   }
+
   res.send({
     success: true,
     message: "Loans fetched successful",
@@ -418,6 +433,10 @@ app.get("/gnadmin", authenticateToken, async (req, res) => {
 
 app.post("/get-all-branches", authenticateToken, async (req, res) => {
   console.log("reqgnUserObj", req.gnUserObj.role);
+  if (req.body.needfor == "LoanApplication") {
+    const result = await GNAdmin.findOne({ section: "branches" });
+    res.status(200).send(result?.branches ?? []);
+  }
   if (req.gnUserObj.role == "admin") {
     const result = await GNAdmin.findOne({ section: "branches" });
     res.status(200).send(result?.branches ?? []);
