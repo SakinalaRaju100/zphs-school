@@ -283,7 +283,7 @@ app.post("/gn-login", async (req, res) => {
   try {
     const userData = await GNUsers.findOne({
       $or: [{ userId: user.toUpperCase() }, { mobile: user }, { email: user }],
-    });
+    }).lean();
 
     console.log("userData", userData);
 
@@ -295,19 +295,20 @@ app.post("/gn-login", async (req, res) => {
         .send({ success: false, message: "password not matched", data: null });
     }
 
-    // delete userData._id;
-    // delete userData.password;
+    const userData2 = { ...userData };
+    delete userData2._id;
+    delete userData2.password;
 
     // Generate JWT token
-    const goldnoontoken = jwt.sign({ ...userData }, SECRET_KEY, {
+    const goldnoontoken = jwt.sign({ ...userData2 }, SECRET_KEY, {
       expiresIn: "30d",
     });
 
-    if (userData) {
+    if (userData2) {
       res.status(200).send({
         success: true,
         message: "login successful",
-        data: userData,
+        data: userData2,
         goldnoontoken,
       });
     } else {
@@ -678,6 +679,41 @@ app.post("/addCallingData", async (req, res) => {
       { upsert: true }
     );
     res.status(200).send(result);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching users", error: err });
+  }
+});
+
+app.post("/save-interested-partner", async (req, res) => {
+  try {
+    const existingInterestedPartners = await GNAdmin.findOne({
+      section: "interestedPartners",
+    });
+
+    const result = await GNAdmin.updateOne(
+      { section: "interestedPartners" },
+      {
+        $set: {
+          interestedPartners: [
+            ...(existingInterestedPartners?.interestedPartners ?? []),
+            { ...req.body },
+          ],
+        },
+      }
+    );
+
+    res.status(200).send({
+      success: true,
+      message: "New Partner interst added successfully",
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching users", error: err });
+  }
+});
+app.get("/get-interested-partners", async (req, res) => {
+  try {
+    const result = await GNAdmin.findOne({ section: "interestedPartners" });
+    res.status(200).send(result?.interestedPartners ?? []);
   } catch (err) {
     res.status(500).json({ message: "Error fetching users", error: err });
   }
