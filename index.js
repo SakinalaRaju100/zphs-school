@@ -357,7 +357,7 @@ app.post("/gn-loans", authenticateToken, async (req, res) => {
 });
 
 app.post("/add-new-gn-loan", async (req, res) => {
-  console.log("req.body", req.body);
+  console.log("add new loan req.body", req.body);
   const { userId, cbillScore, loanType } = req.body;
 
   let loanTypeShort =
@@ -380,6 +380,10 @@ app.post("/add-new-gn-loan", async (req, res) => {
     (r) => cbillScore >= r.from && cbillScore <= r.to
   )?.grade;
 
+  if (cibilGrade == "poor") {
+    return res.send({ message: "CibilGrade is poor" });
+  }
+
   const newGNLoan = new GNLoans({
     loanId: userId + loanTypeShort + (customerLoans.length + 1),
     userId,
@@ -397,7 +401,7 @@ app.post("/add-new-gn-loan", async (req, res) => {
     ],
   });
   await newGNLoan.save();
-  res.send({ cibilGrade });
+  res.send({ message: `cibilGrade is ${cibilGrade}` });
 });
 
 const { put } = require("@vercel/blob");
