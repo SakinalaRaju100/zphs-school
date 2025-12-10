@@ -357,7 +357,8 @@ app.post("/gn-loans", authenticateToken, async (req, res) => {
 });
 
 app.post("/add-new-gn-loan", async (req, res) => {
-  const { userId, loanType } = req.body;
+  console.log("req.body", req.body);
+  const { userId, cbillScore, loanType } = req.body;
 
   let loanTypeShort =
     loanType == "Personal Loan"
@@ -373,11 +374,18 @@ app.post("/add-new-gn-loan", async (req, res) => {
     userId: userId,
   });
 
+  const AdminRules = await GNAdmin.findOne({ section: "rules" }).lean();
+
+  const cibilGrade = AdminRules?.cbillrules.find(
+    (r) => cbillScore >= r.from && cbillScore <= r.to
+  )?.grade;
+
   const newGNLoan = new GNLoans({
     loanId: userId + loanTypeShort + (customerLoans.length + 1),
     userId,
     loanStatus: "underVerification",
     ...req.body,
+    cibilGrade,
     notes: "NA",
     actions: [
       {
@@ -389,7 +397,7 @@ app.post("/add-new-gn-loan", async (req, res) => {
     ],
   });
   await newGNLoan.save();
-  res.send(newGNLoan);
+  res.send({ cibilGrade });
 });
 
 const { put } = require("@vercel/blob");
@@ -534,9 +542,10 @@ app.post("/update-loan-status", async (req, res) => {
     loanDisbursedDetails = {},
     emiDetails = {},
   } = req.body;
+  console.log("req.body", req.body);
   const loan = await GNLoans.findOne({ loanId });
   let result;
-  if (newLoanStatus == "approved") {
+  if (newLoanStatus == "approve") {
     result = await GNLoans.updateOne(
       { loanId: loanId },
       {
@@ -555,7 +564,7 @@ app.post("/update-loan-status", async (req, res) => {
         },
       }
     );
-  } else if (newLoanStatus == "disbursing") {
+  } else if (newLoanStatus == "disburse") {
     result = await GNLoans.updateOne(
       { loanId: loanId },
       {
@@ -718,6 +727,14 @@ app.get("/get-interested-partners", async (req, res) => {
     res.status(500).json({ message: "Error fetching users", error: err });
   }
 });
+// app.get("/getAdminRules", async (req, res) => {
+//   try {
+//     const result = await GNAdmin.findOne({ section: "rules" });
+//     res.status(200).send(result?.interestedPartners ?? []);
+//   } catch (err) {
+//     res.status(500).json({ message: "Error fetching users", error: err });
+//   }
+// });
 
 const port = process.env.PORT || 1954;
 app.listen(port, () => {
