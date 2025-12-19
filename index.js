@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
+const moment = require("moment");
+
 const Enroll = require("./modals/Enroll");
 const Feedback = require("./modals/Feedback");
 const Time = require("./modals/Time");
@@ -731,14 +733,54 @@ app.get("/get-interested-partners", async (req, res) => {
     res.status(500).json({ message: "Error fetching users", error: err });
   }
 });
-// app.get("/getAdminRules", async (req, res) => {
-//   try {
-//     const result = await GNAdmin.findOne({ section: "rules" });
-//     res.status(200).send(result?.interestedPartners ?? []);
-//   } catch (err) {
-//     res.status(500).json({ message: "Error fetching users", error: err });
-//   }
-// });
+app.post("/getAdminRules", async (req, res) => {
+  try {
+    const result = await GNAdmin.findOne({ section: "rules" });
+    res.status(200).send(result ?? []);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching users", error: err });
+  }
+});
+app.post("/getCollectionData", async (req, res) => {
+  // console.log("req.body", req.body);
+  const { type, duration } = req.body;
+  try {
+    const result = await GNLoans.find({
+      // emiDetails: { $exists: true, $ne: null },
+      // duration dates should match here
+    }).lean();
+
+    const upcomingEMIs = result.filter((loan) => {
+      const emiData = loan.emiDetails.emiData;
+      // console.log("emiData", emiData);
+      return emiData.find((emi) => {
+        // return moment(new Date(emi.month)).isAfter(moment().remove(1, "day"));
+        return (
+          moment(new Date(emi.month)).isBetween(
+            moment().startOf("day"),
+            moment().add(7, "days").endOf("day"),
+            null,
+            []
+          ) && !emi.status
+        );
+      });
+    });
+    const unpaidEMIs = result.filter((loan) => {
+      const emiData = loan.emiDetails.emiData;
+      // console.log("emiData", emiData);
+      return emiData.find((emi) => {
+        return (
+          moment(new Date(emi.month)).isBefore(moment().startOf("day")) &&
+          !emi.status
+        );
+      });
+    });
+
+    res.status(200).send({ upcomingEMIs, unpaidEMIs } ?? []);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching users", error: err });
+  }
+});
 
 const port = process.env.PORT || 1954;
 app.listen(port, () => {
